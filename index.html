@@ -777,6 +777,7 @@ pointsGroup.appendChild(brG);
     let speed = index === 0 ? 0.7 : -0.7; // Row 1 moves left, Row 2 moves right
     let isPaused = false;
     let exactScroll = speed < 0 ? row.scrollWidth / 2 : 0; 
+    let interactionTimeout = null;
     
     // Inicializa a posição
     row.scrollLeft = exactScroll;
@@ -799,22 +800,43 @@ pointsGroup.appendChild(brG);
     
     requestAnimationFrame(scrollLoop);
 
-    // Controle do usuário
-    const pause = () => { isPaused = true; };
-    const resume = () => { 
-      isPaused = false; 
-      exactScroll = row.scrollLeft; // Atualiza a base para a posição que o usuário soltou
+    // Controle de interação para respeitar o "momentum" (inércia) nativo do celular
+    const onInteract = () => {
+      isPaused = true;
+      if(interactionTimeout) clearTimeout(interactionTimeout);
     };
 
-    row.addEventListener('touchstart', pause, {passive: true});
-    row.addEventListener('mousedown', pause);
-    row.addEventListener('touchend', resume);
-    row.addEventListener('mouseup', resume);
-    row.addEventListener('mouseleave', resume);
+    const onInteractEnd = () => {
+      if(interactionTimeout) clearTimeout(interactionTimeout);
+      // Só volta a mover sozinho 800ms APÓS o scroll terminar de deslizar
+      interactionTimeout = setTimeout(() => {
+        isPaused = false;
+        exactScroll = row.scrollLeft;
+      }, 800);
+    };
+
+    // Eventos de toque no celular
+    row.addEventListener('touchstart', onInteract, {passive: true});
+    row.addEventListener('touchend', onInteractEnd);
     
-    // Atualiza o acumulador quando o usuário arrasta
+    // Eventos de mouse no PC
+    row.addEventListener('mouseenter', onInteract);
+    row.addEventListener('mouseleave', onInteractEnd);
+    row.addEventListener('mousedown', onInteract);
+    row.addEventListener('mouseup', onInteractEnd);
+
+    // Roda do mouse no PC
+    row.addEventListener('wheel', () => {
+      onInteract();
+      onInteractEnd();
+    }, {passive: true});
+    
+    // Escuta o scroll nativo (inércia). Reseta o timer a cada frame de deslize!
     row.addEventListener('scroll', () => {
-      if(isPaused) exactScroll = row.scrollLeft;
+      if(isPaused) {
+        exactScroll = row.scrollLeft;
+        onInteractEnd(); // Reinicia a contagem de 800ms enquanto estiver deslizando
+      }
     }, {passive: true});
   });
 })();
