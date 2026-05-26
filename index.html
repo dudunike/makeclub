@@ -684,13 +684,12 @@ pointsGroup.appendChild(brG);
 <!-- CAROUSEL DE MÓDULOS -->
 <section id="carousel-modulos" style="overflow:hidden; padding: 40px 0; background: var(--bg);">
   <style>
-    /* Rolagem nativa suave e moderna */
+    /* Rolagem nativa suave e moderna sem snap para não travar a animação */
     .carousel-row { 
       overflow-x: auto; 
       overflow-y: hidden; 
       position: relative; 
       display: flex; 
-      scroll-snap-type: x mandatory; 
       -webkit-overflow-scrolling: touch; 
       scrollbar-width: none; 
       margin-bottom: 16px; 
@@ -708,7 +707,6 @@ pointsGroup.appendChild(brG);
       flex-shrink: 0; 
       border: 1px solid var(--brd); 
       background: var(--bg2); 
-      scroll-snap-align: center;
       transition: transform 0.3s;
     }
     
@@ -776,38 +774,36 @@ pointsGroup.appendChild(brG);
   rows.forEach((row, index) => {
     if (!row) return;
     
-    let speed = index === 0 ? 0.8 : -0.8; // Row 1 moves left, Row 2 moves right
+    let speed = index === 0 ? 0.7 : -0.7; // Row 1 moves left, Row 2 moves right
     let isPaused = false;
-    let scrollPos = speed < 0 ? row.scrollWidth / 2 : 0; // Se move para a direita, começa do meio
+    let exactScroll = speed < 0 ? row.scrollWidth / 2 : 0; 
     
-    // Inicializa a posição do scroll corretamente
-    row.scrollLeft = scrollPos;
+    // Inicializa a posição
+    row.scrollLeft = exactScroll;
 
     const scrollLoop = () => {
       if (!isPaused) {
-        scrollPos += speed;
+        exactScroll += speed;
         
-        // Lógica de loop infinito
-        const maxScroll = row.scrollWidth - row.clientWidth;
-        
-        if (speed > 0 && scrollPos >= row.scrollWidth / 2) {
-          scrollPos = 0; // Volta para o início de forma invisível
-        } else if (speed < 0 && scrollPos <= 0) {
-          scrollPos = row.scrollWidth / 2; // Volta para a metade de forma invisível
+        // Mantém a rolagem infinita
+        if (speed > 0 && exactScroll >= row.scrollWidth / 2) {
+          exactScroll = 0;
+        } else if (speed < 0 && exactScroll <= 0) {
+          exactScroll = row.scrollWidth / 2;
         }
         
-        row.scrollLeft = scrollPos;
+        row.scrollLeft = exactScroll;
       }
       requestAnimationFrame(scrollLoop);
     };
     
     requestAnimationFrame(scrollLoop);
 
-    // Pausa quando o usuário interage (toca ou arrasta)
+    // Controle do usuário
     const pause = () => { isPaused = true; };
     const resume = () => { 
       isPaused = false; 
-      scrollPos = row.scrollLeft; // Atualiza a posição atual para continuar de onde o usuário soltou
+      exactScroll = row.scrollLeft; // Atualiza a base para a posição que o usuário soltou
     };
 
     row.addEventListener('touchstart', pause, {passive: true});
@@ -816,9 +812,9 @@ pointsGroup.appendChild(brG);
     row.addEventListener('mouseup', resume);
     row.addEventListener('mouseleave', resume);
     
-    // Se o usuário rolar com o mouse wheel/trackpad, atualiza a posição base
+    // Atualiza o acumulador quando o usuário arrasta
     row.addEventListener('scroll', () => {
-      if(isPaused) scrollPos = row.scrollLeft;
+      if(isPaused) exactScroll = row.scrollLeft;
     }, {passive: true});
   });
 })();
