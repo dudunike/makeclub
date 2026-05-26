@@ -684,80 +684,50 @@ pointsGroup.appendChild(brG);
 <!-- CAROUSEL DE MÓDULOS -->
 <section id="carousel-modulos" style="overflow:hidden; padding: 40px 0; background: var(--bg);">
   <style>
-    /* Carousel wrapper — clips content */
-    .carousel-row { overflow: hidden; position: relative; cursor: grab; user-select: none; -webkit-user-select: none; margin-bottom: 16px; }
-    .carousel-row:active { cursor: grabbing; }
+    /* Rolagem nativa suave e moderna */
+    .carousel-row { 
+      overflow-x: auto; 
+      overflow-y: hidden; 
+      position: relative; 
+      display: flex; 
+      scroll-snap-type: x mandatory; 
+      -webkit-overflow-scrolling: touch; 
+      scrollbar-width: none; 
+      margin-bottom: 16px; 
+      padding: 0 20px;
+    }
+    .carousel-row::-webkit-scrollbar { display: none; }
+    
     .carousel-track { display: flex; width: max-content; gap: 16px; }
-    .carousel-track.left { animation: scrollLeft 40s linear infinite; }
-    .carousel-track.right { animation: scrollRight 40s linear infinite; }
-    .carousel-track.dragging { animation-play-state: paused !important; transition: none; }
-    .carousel-item { width: 220px; height: 300px; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--brd); background: var(--bg2); pointer-events: none; }
-    .carousel-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-    @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    
+    .carousel-item { 
+      width: 220px; 
+      height: 300px; 
+      border-radius: 12px; 
+      overflow: hidden; 
+      flex-shrink: 0; 
+      border: 1px solid var(--brd); 
+      background: var(--bg2); 
+      scroll-snap-align: center;
+      transition: transform 0.3s;
+    }
+    
+    /* Melhoria na qualidade de renderização das imagens */
+    .carousel-item img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      display: block; 
+      image-rendering: high-quality;
+      filter: contrast(1.08) saturate(1.1) brightness(1.02);
+    }
+
     @media(max-width:768px){
       .carousel-item { width: 160px; height: 220px; }
     }
-
-    /* ── GLOWING CTA BUTTON ───────────────────────── */
-    .cta-glow-wrap {
-      position: relative;
-      display: block;
-      border-radius: var(--rad);
-      margin: 0; padding: 0;
-    }
-    /* outer glow layer 1 */
-    .cta-glow-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: calc(var(--rad) + 3px);
-      z-index: 0;
-      overflow: hidden;
-      background: conic-gradient(from var(--glow-angle, 60deg), #000, #402fb5 5%, #000 38%, #000 50%, #cf30aa 60%, #000 87%);
-      filter: blur(4px);
-      animation: glowSpin 4s linear infinite;
-    }
-    /* outer glow layer 2 (softer inner ring) */
-    .cta-glow-wrap::after {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: calc(var(--rad) + 2px);
-      z-index: 0;
-      background: conic-gradient(from var(--glow-angle2, 82deg), rgba(0,0,0,0), #18116a, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, #6e1b60, rgba(0,0,0,0) 60%);
-      filter: blur(3px);
-      animation: glowSpin2 4s linear infinite;
-    }
-    .cta-glow-wrap .cta-btn {
-      position: relative;
-      z-index: 1;
-      border-radius: var(--rad);
-    }
-    @property --glow-angle {
-      syntax: '<angle>'; inherits: false; initial-value: 60deg;
-    }
-    @property --glow-angle2 {
-      syntax: '<angle>'; inherits: false; initial-value: 82deg;
-    }
-    @keyframes glowSpin {
-      0%   { --glow-angle: 60deg; }
-      100% { --glow-angle: 420deg; }
-    }
-    @keyframes glowSpin2 {
-      0%   { --glow-angle2: 82deg; }
-      100% { --glow-angle2: 442deg; }
-    }
   </style>
   <div class="carousel-row" id="carouselRow1">
-    <div class="carousel-track left" id="carouselTrack1">
-      <div class="carousel-item"><img src="fc69631d-1193-4d90-bdc5-9cb44dc8bd70.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="bd052fa8-0a1a-4a1e-a8f4-8a4b628f99e0.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="a2957987-a5df-4d2e-a67f-b0e4ff23e2a6.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="b9aa767e-e96d-49db-a57d-9850e4e9d70b.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="a4db805a-0195-4a65-92fa-0159ba7fcb96.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="27afb5e5-4e18-41e4-ad39-8d912ec1e4fd.png" alt="Módulo"></div>
-      <!-- Duplicado para efeito infinito -->
+    <div class="carousel-track" id="carouselTrack1">
       <div class="carousel-item"><img src="fc69631d-1193-4d90-bdc5-9cb44dc8bd70.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="bd052fa8-0a1a-4a1e-a8f4-8a4b628f99e0.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="a2957987-a5df-4d2e-a67f-b0e4ff23e2a6.png" alt="Módulo"></div>
@@ -767,17 +737,7 @@ pointsGroup.appendChild(brG);
     </div>
   </div>
   <div class="carousel-row" id="carouselRow2">
-    <div class="carousel-track right" id="carouselTrack2">
-      <div class="carousel-item"><img src="be61c1e2-7ece-4420-b559-6d6418ab7d14.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="420d3c42-66a0-438c-ae5b-23387508248d.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="9a961203-a619-426c-9eae-e0e39aceda42.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="d17a3deb-4a7b-4cb9-bd3b-9162319628f9.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="4cb82b15-29e3-4fde-9381-8cd9fdefbeb9.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="6e4b2e47-538c-4b56-b937-22128e673e0b.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="0dac25d9-20ed-409a-a9b3-1d7cb4c873b7.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="a7186710-750a-4be5-8d70-e461170b8ed4.png" alt="Módulo"></div>
-      <div class="carousel-item"><img src="8336783c-3260-4d05-b795-11a33e18f9d0.png" alt="Módulo"></div>
-      <!-- Duplicado para efeito infinito -->
+    <div class="carousel-track" id="carouselTrack2">
       <div class="carousel-item"><img src="be61c1e2-7ece-4420-b559-6d6418ab7d14.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="420d3c42-66a0-438c-ae5b-23387508248d.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="9a961203-a619-426c-9eae-e0e39aceda42.png" alt="Módulo"></div>
@@ -795,6 +755,7 @@ pointsGroup.appendChild(brG);
 <section id="showcase">
   <div id="sscroll-area">
     <div id="sscroll-pin">
+      <canvas id="shader-bg-canvas" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;"></canvas>
       <div class="show-head">
         <span class="eyebrow ft">ESTILO DE VIDA GLOBAL</span>
         <h2 class="sh fscale d1">A liberdade para <em>viajar o mundo inteiro</em></h2>
@@ -810,6 +771,239 @@ pointsGroup.appendChild(brG);
     <p class="fr d2">Ganhar em Dólar e Euro te dá o poder de viver experiências exclusivas em qualquer lugar do mundo. O sistema roda 100% no automático, a vida é toda sua.</p>
   </div>
 </section>
+
+<script>
+(function() {
+  const canvas = document.getElementById('shader-bg-canvas');
+  if (!canvas) return;
+
+  const gl = canvas.getContext('webgl');
+  if (!gl) {
+    console.warn('WebGL not supported.');
+    return;
+  }
+
+  const vsSource = `
+    attribute vec4 aVertexPosition;
+    void main() {
+      gl_Position = aVertexPosition;
+    }
+  `;
+
+  const fsSource = `
+    precision highp float;
+    uniform vec2 iResolution;
+    uniform float iTime;
+
+    const float overallSpeed = 0.2;
+    const float gridSmoothWidth = 0.015;
+    const float axisWidth = 0.05;
+    const float majorLineWidth = 0.025;
+    const float minorLineWidth = 0.0125;
+    const float majorLineFrequency = 5.0;
+    const float minorLineFrequency = 1.0;
+    const vec4 gridColor = vec4(0.5);
+    const float scale = 5.0;
+    const vec4 lineColor = vec4(0.4, 0.2, 0.8, 1.0);
+    const float minLineWidth = 0.01;
+    const float maxLineWidth = 0.2;
+    const float lineSpeed = 1.0 * overallSpeed;
+    const float lineAmplitude = 1.0;
+    const float lineFrequency = 0.2;
+    const float warpSpeed = 0.2 * overallSpeed;
+    const float warpFrequency = 0.5;
+    const float warpAmplitude = 1.0;
+    const float offsetFrequency = 0.5;
+    const float offsetSpeed = 1.33 * overallSpeed;
+    const float minOffsetSpread = 0.6;
+    const float maxOffsetSpread = 2.0;
+    const int linesPerGroup = 16;
+
+    #define drawCircle(pos, radius, coord) smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
+    #define drawSmoothLine(pos, halfWidth, t) smoothstep(halfWidth, 0.0, abs(pos - (t)))
+    #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
+    #define drawPeriodicLine(freq, width, t) drawCrispLine(freq / 2.0, width, abs(mod(t, freq) - (freq) / 2.0))
+
+    float drawGridLines(float axis) {
+      return drawCrispLine(0.0, axisWidth, axis)
+            + drawPeriodicLine(majorLineFrequency, majorLineWidth, axis)
+            + drawPeriodicLine(minorLineFrequency, minorLineWidth, axis);
+    }
+
+    float drawGrid(vec2 space) {
+      return min(1.0, drawGridLines(space.x) + drawGridLines(space.y));
+    }
+
+    float random(float t) {
+      return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
+    }
+
+    float getPlasmaY(float x, float horizontalFade, float offset) {
+      return random(x * lineFrequency + iTime * lineSpeed) * horizontalFade * lineAmplitude + offset;
+    }
+
+    void main() {
+      vec2 fragCoord = gl_FragCoord.xy;
+      vec4 fragColor;
+      vec2 uv = fragCoord.xy / iResolution.xy;
+      vec2 space = (fragCoord - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
+
+      float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
+      float verticalFade = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
+
+      space.y += random(space.x * warpFrequency + iTime * warpSpeed) * warpAmplitude * (0.5 + horizontalFade);
+      space.x += random(space.y * warpFrequency + iTime * warpSpeed + 2.0) * warpAmplitude * horizontalFade;
+
+      vec4 lines = vec4(0.0);
+      vec4 bgColor1 = vec4(0.0, 0.0, 0.0, 0.0);
+      vec4 bgColor2 = vec4(0.0, 0.0, 0.0, 0.0);
+
+      for(int l = 0; l < linesPerGroup; l++) {
+        float normalizedLineIndex = float(l) / float(linesPerGroup);
+        float offsetTime = iTime * offsetSpeed;
+        float offsetPosition = float(l) + space.x * offsetFrequency;
+        float rand = random(offsetPosition + offsetTime) * 0.5 + 0.5;
+        float halfWidth = mix(minLineWidth, maxLineWidth, rand * horizontalFade) / 2.0;
+        float offset = random(offsetPosition + offsetTime * (1.0 + normalizedLineIndex)) * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
+        float linePosition = getPlasmaY(space.x, horizontalFade, offset);
+        float line = drawSmoothLine(linePosition, halfWidth, space.y) / 2.0 + drawCrispLine(linePosition, halfWidth * 0.15, space.y);
+
+        float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
+        vec2 circlePosition = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
+        float circle = drawCircle(circlePosition, 0.01, space) * 4.0;
+
+        line = line + circle;
+        lines += line * lineColor * rand;
+      }
+
+      fragColor = lines;
+      // Multiplica pela atenuação vertical para suavizar as bordas
+      fragColor *= verticalFade;
+
+      gl_FragColor = fragColor;
+    }
+  `;
+
+  const loadShader = (gl, type, source) => {
+    const shader = gl.createShader(type);
+    gl.shaderSource(shader, source);
+    gl.compileShader(shader);
+
+    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+      console.error('Shader compile error: ', gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
+    }
+
+    return shader;
+  };
+
+  const initShaderProgram = (gl, vsSource, fsSource) => {
+    const vertexShader = loadShader(gl, gl.VERTEX_SHADER, vsSource);
+    const fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fsSource);
+
+    const shaderProgram = gl.createProgram();
+    gl.attachShader(shaderProgram, vertexShader);
+    gl.attachShader(shaderProgram, fragmentShader);
+    gl.linkProgram(shaderProgram);
+
+    if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+      console.error('Shader program link error: ', gl.getProgramInfoLog(shaderProgram));
+      return null;
+    }
+
+    return shaderProgram;
+  };
+
+  const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
+  const positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  const positions = [
+    -1.0, -1.0,
+     1.0, -1.0,
+    -1.0,  1.0,
+     1.0,  1.0,
+  ];
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+
+  const programInfo = {
+    program: shaderProgram,
+    attribLocations: {
+      vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
+    },
+    uniformLocations: {
+      resolution: gl.getUniformLocation(shaderProgram, 'iResolution'),
+      time: gl.getUniformLocation(shaderProgram, 'iTime'),
+    },
+  };
+
+  const resizeCanvas = () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  };
+
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  let startTime = Date.now();
+  let isVisible = false;
+  let animationId;
+
+  const render = () => {
+    if (!isVisible) return; // Pausa o WebGL quando fora da tela
+
+    const currentTime = (Date.now() - startTime) / 1000;
+
+    gl.clearColor(0.0, 0.0, 0.0, 0.0); // Transparente!
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    gl.useProgram(programInfo.program);
+
+    gl.uniform2f(programInfo.uniformLocations.resolution, canvas.width, canvas.height);
+    gl.uniform1f(programInfo.uniformLocations.time, currentTime);
+
+    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.vertexAttribPointer(
+      programInfo.attribLocations.vertexPosition,
+      2,
+      gl.FLOAT,
+      false,
+      0,
+      0
+    );
+    gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
+
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    animationId = requestAnimationFrame(render);
+  };
+
+  // Observador para rodar a animação APENAS quando a seção estiver visível
+  const showcaseSection = document.getElementById('showcase');
+  if (showcaseSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!isVisible) {
+            isVisible = true;
+            // Retoma a animação
+            render();
+          }
+        } else {
+          isVisible = false;
+          if (animationId) cancelAnimationFrame(animationId);
+        }
+      });
+    }, { rootMargin: "200px" }); // Ativa 200px antes de entrar na tela
+    
+    observer.observe(showcaseSection);
+  } else {
+    // Fallback de segurança
+    isVisible = true;
+    render();
+  }
+})();
+</script>
 
 <div class="div-line"></div>
 
@@ -851,11 +1045,11 @@ pointsGroup.appendChild(brG);
   ];
 
   const container = document.getElementById('gallery-container');
-  // Dynamic radius based on screen size
   const isMobile = window.innerWidth < 768;
-  const radius = isMobile ? 280 : 500;
-  const cardWidth = isMobile ? 240 : 300;
-  const cardHeight = isMobile ? 420 : 500;
+  const radius = isMobile ? 240 : 500;
+  const cardWidth = isMobile ? 220 : 300;
+  const cardHeight = isMobile ? 380 : 500;
+  const topPos = isMobile ? '55%' : '50%';
   const anglePerItem = 360 / images.length;
 
   // Build items
@@ -868,7 +1062,7 @@ pointsGroup.appendChild(brG);
       width: ${cardWidth}px;
       height: ${cardHeight}px;
       left: 50%;
-      top: 50%;
+      top: ${topPos};
       margin-left: -${cardWidth/2}px;
       margin-top: -${cardHeight/2}px;
       border-radius: 16px;
@@ -888,6 +1082,8 @@ pointsGroup.appendChild(brG);
       height: 100%;
       object-fit: cover;
       pointer-events: none;
+      image-rendering: high-quality;
+      filter: contrast(1.1) saturate(1.15) brightness(1.05);
     `;
     div.appendChild(img);
     container.appendChild(div);
@@ -1272,89 +1468,7 @@ onScroll();
   }tick();
 })();
 
-// ── DRAGGABLE CAROUSELS ─────────────────────────────────────
-(function(){
-  function makeDraggable(rowEl, trackEl) {
-    let isDragging = false;
-    let startX = 0;
-    let dragDelta = 0;
-    let animOffset = 0; // current CSS translateX from animation
-    let currentX = 0;  // total manual offset applied
-    let velX = 0;
-    let lastX = 0;
-    let rafId = null;
-    const isRight = trackEl.classList.contains('right');
-
-    // Read the current animated transform matrix so drag starts from the right place
-    function getAnimatedX() {
-      const matrix = window.getComputedStyle(trackEl).transform;
-      if (!matrix || matrix === 'none') return 0;
-      const m = new DOMMatrix(matrix);
-      return m.m41;
-    }
-
-    function applyOffset(x) {
-      trackEl.style.transform = 'translateX(' + x + 'px)';
-    }
-
-    function onPointerDown(e) {
-      isDragging = true;
-      animOffset = getAnimatedX();
-      currentX = animOffset;
-      startX = e.clientX ?? e.touches[0].clientX;
-      lastX = startX;
-      velX = 0;
-      trackEl.classList.add('dragging');
-      trackEl.style.transform = 'translateX(' + currentX + 'px)';
-      if (rafId) cancelAnimationFrame(rafId); rafId = null;
-    }
-
-    function onPointerMove(e) {
-      if (!isDragging) return;
-      const clientX = e.clientX ?? e.touches[0].clientX;
-      velX = clientX - lastX;
-      lastX = clientX;
-      dragDelta = clientX - startX;
-      currentX = animOffset + dragDelta;
-      applyOffset(currentX);
-    }
-
-    function onPointerUp() {
-      if (!isDragging) return;
-      isDragging = false;
-      trackEl.classList.remove('dragging');
-      // momentum glide
-      let v = velX;
-      function glide() {
-        v *= 0.92;
-        currentX += v;
-        applyOffset(currentX);
-        if (Math.abs(v) > 0.3) {
-          rafId = requestAnimationFrame(glide);
-        } else {
-          // resume CSS animation by clearing inline transform
-          rafId = null;
-          trackEl.style.transform = '';
-        }
-      }
-      rafId = requestAnimationFrame(glide);
-    }
-
-    rowEl.addEventListener('mousedown', onPointerDown);
-    window.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('mouseup', onPointerUp);
-    rowEl.addEventListener('touchstart', onPointerDown, {passive:true});
-    window.addEventListener('touchmove', onPointerMove, {passive:true});
-    window.addEventListener('touchend', onPointerUp);
-  }
-
-  const row1 = document.getElementById('carouselRow1');
-  const track1 = document.getElementById('carouselTrack1');
-  const row2 = document.getElementById('carouselRow2');
-  const track2 = document.getElementById('carouselTrack2');
-  if (row1 && track1) makeDraggable(row1, track1);
-  if (row2 && track2) makeDraggable(row2, track2);
-})();
+// ── CAROUSELS (NATIVE SCROLL) ─────────────────────────────────────
 
 // ── FAQ ──────────────────────────────────────────────────────
 function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
