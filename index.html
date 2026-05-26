@@ -1322,6 +1322,17 @@ pointsGroup.appendChild(brG);
 
         var ytPlayer;
         var isPlayerReady = false;
+        var YT_VIDEO_ID = '8sqarGt-_SE';
+        var YT_BASE_PARAMS = 'start=1&modestbranding=1&rel=0&showinfo=0&controls=0&enablejsapi=1&playsinline=1';
+
+        // Add origin to iframe src so YouTube API postMessage validates correctly
+        (function() {
+          var origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
+          var iframe = document.getElementById('yt-iframe');
+          if (iframe && origin && iframe.src.indexOf('origin=') === -1) {
+            iframe.src += '&origin=' + encodeURIComponent(origin);
+          }
+        })();
 
         function onYouTubeIframeAPIReady() {
           ytPlayer = new YT.Player('yt-iframe', {
@@ -1333,7 +1344,7 @@ pointsGroup.appendChild(brG);
         }
 
         function onPlayerStateChange(event) {
-          const pauseOverlay = document.getElementById('custom-pause-overlay');
+          var pauseOverlay = document.getElementById('custom-pause-overlay');
           // event.data: 1 = playing, 2 = paused, 0 = ended
           if (event.data === 2 || event.data === 0) {
              if(pauseOverlay) pauseOverlay.style.display = 'flex';
@@ -1342,31 +1353,68 @@ pointsGroup.appendChild(brG);
           }
         }
 
+        function _ytReloadWithAutoplay() {
+          // Reliable fallback for Instagram IAB and restricted WebViews:
+          // Changing the src with autoplay=1 is triggered by a user gesture,
+          // so the browser allows autoplay without needing postMessage.
+          var origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
+          var src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID + '?' + YT_BASE_PARAMS + '&autoplay=1';
+          if (origin) src += '&origin=' + encodeURIComponent(origin);
+          var iframe = document.getElementById('yt-iframe');
+          iframe.src = src;
+          // Re-hook YouTube API after src reload
+          isPlayerReady = false;
+          ytPlayer = null;
+          setTimeout(function() {
+            if (typeof YT !== 'undefined' && YT.Player) {
+              ytPlayer = new YT.Player('yt-iframe', {
+                events: {
+                  'onReady': function() { isPlayerReady = true; },
+                  'onStateChange': onPlayerStateChange
+                }
+              });
+            }
+          }, 200);
+        }
+
         function playVideoInit() {
-          const overlay = document.getElementById('video-overlay');
+          var overlay = document.getElementById('video-overlay');
           if(overlay) overlay.style.display = 'none';
-          
+
+          // Primary: YouTube API (works in regular browsers)
           if(isPlayerReady && ytPlayer && ytPlayer.playVideo) {
             ytPlayer.playVideo();
-          } else {
-             // Fallback if API is not fully loaded yet
-             var iframe = document.getElementById('yt-iframe');
-             iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            return;
           }
+
+          // Secondary: postMessage (may work in some WebViews)
+          var iframe = document.getElementById('yt-iframe');
+          try {
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+          } catch(e) {}
+
+          // Fallback: reload src with autoplay=1 — works in Instagram IAB and all restricted browsers
+          // Use short delay so postMessage above gets a chance first
+          setTimeout(function() {
+            if (!isPlayerReady) {
+              _ytReloadWithAutoplay();
+            }
+          }, 400);
         }
 
         function togglePlayPause() {
           if(isPlayerReady && ytPlayer && ytPlayer.getPlayerState) {
-            let state = ytPlayer.getPlayerState();
-            if(state === 1) { // playing
+            var state = ytPlayer.getPlayerState();
+            if(state === 1) {
               ytPlayer.pauseVideo();
             } else {
               ytPlayer.playVideo();
             }
           } else {
-            // Fallback to play if state is unknown
             var iframe = document.getElementById('yt-iframe');
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            try {
+              iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            } catch(e) {}
           }
         }
       </script>
