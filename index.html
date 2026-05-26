@@ -1,824 +1,1369 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" style="background:#080808">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Make Money Club — Sistema de IA para Dropshipping Global</title>
-<meta name="description" content="Crie lojas de dropshipping validadas na Europa, EUA e UK e lucre em Euro, Dolar e Libra com IA.">
+<meta name="description" content="Sistema de IA que cria lojas validadas na Europa, EUA e UK. Lucre em Euro, Dólar e Libra.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#080808;
-  --bg2:#0f0f0f;
-  --bg3:#141414;
-  --bg4:#1a1a1a;
-  --acc:#ffffff;
-  --acc2:#d4d4d4;
-  --brd:#222222;
-  --brd2:#2e2e2e;
-  --txt:#f0f0f0;
-  --txt2:#888888;
-  --txt3:#555555;
-  --font:'Space Grotesk',system-ui,sans-serif;
-  --rad:10px;
-  --radbtn:6px;
-}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--txt);font-size:17px;line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#080808;--bg2:#0f0f0f;--bg3:#141414;--bg4:#1a1a1a;
+  --acc:#fff;--brd:#1e1e1e;--brd2:#2a2a2a;
+  --txt:#f0f0f0;--txt2:#888;--txt3:#444;--max:480px;--rad:10px;
+}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
 
-/* GRID BG */
-.grid-bg{position:relative}
-.grid-bg::before{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--brd) 1px,transparent 1px),linear-gradient(90deg,var(--brd) 1px,transparent 1px);background-size:72px 72px;opacity:.12;pointer-events:none;z-index:0}
-.grid-bg>*{position:relative;z-index:1}
-.dot-bg{position:relative}
-.dot-bg::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,#2a2a2a 1px,transparent 1px);background-size:36px 36px;opacity:.5;pointer-events:none;z-index:0}
-.dot-bg>*{position:relative;z-index:1}
-
-/* TYPOGRAPHY */
-.sec-label{font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--txt3);margin-bottom:18px}
-h1{font-size:clamp(34px,5vw,62px);font-weight:800;line-height:1.08;letter-spacing:-.025em;color:var(--acc)}
-h2{font-size:clamp(26px,3.8vw,46px);font-weight:700;line-height:1.12;letter-spacing:-.02em;color:var(--acc)}
-h3{font-size:17px;font-weight:700;color:var(--acc);margin-bottom:8px;letter-spacing:-.01em}
-p{color:var(--txt2);font-size:16px}
-
-/* LAYOUT */
-section{padding:110px 24px}
-.container{max-width:1160px;margin:0 auto}
-
-/* FADE IN */
-.fi{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}
-.fi.on{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
-.d4{transition-delay:.4s}.d5{transition-delay:.5s}.d6{transition-delay:.6s}
-
-/* DIVIDER */
-hr.sec-div{border:none;border-top:1px solid var(--brd);margin:0}
-
-/* BUTTON */
-.btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#080808;font-family:var(--font);font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:18px 36px;border-radius:var(--radbtn);border:none;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s;white-space:nowrap}
-.btn:hover{transform:scale(1.02);box-shadow:0 0 48px rgba(255,255,255,.18),0 8px 32px rgba(0,0,0,.5)}
-.btn-outline{background:transparent;color:#fff;border:1px solid var(--brd2);padding:14px 28px;font-size:13px}
-.btn-outline:hover{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.3)}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 24px;background:rgba(8,8,8,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:16px;font-weight:800;color:var(--acc);letter-spacing:-.01em;display:flex;align-items:center;gap:10px}
-.nav-logo-dot{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.4}
-.nav-cta{display:inline-flex;align-items:center;background:#fff;color:#080808;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:10px 20px;border-radius:var(--radbtn);transition:transform .25s,box-shadow .25s}
-.nav-cta:hover{transform:scale(1.02);box-shadow:0 0 24px rgba(255,255,255,.2)}
-
-/* HERO */
-#hero{padding-top:148px;padding-bottom:80px;min-height:100vh;display:flex;align-items:center}
-.hero-inner{max-width:860px;margin:0 auto;text-align:center}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--brd2);border-radius:4px;padding:7px 14px;font-size:12px;font-weight:500;color:var(--txt2);margin-bottom:32px;letter-spacing:.04em}
-.badge-dot{width:6px;height:6px;border-radius:50%;background:#fff;opacity:.7;animation:blink 2.5s ease-in-out infinite}
+/* ── DIRECTIONAL ANIMATIONS ─────────────────────── */
+@keyframes pulse-btn{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,.22)}50%{box-shadow:0 0 0 12px rgba(255,255,255,0)}}
 @keyframes blink{0%,100%{opacity:.7}50%{opacity:.2}}
-.hero-sub{font-size:19px;color:var(--txt2);margin:28px auto 44px;line-height:1.65;max-width:680px}
-.hero-actions{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
-.sp-row{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:56px;flex-wrap:wrap}
-.sp-item{font-size:13px;color:var(--txt3);display:flex;align-items:center;gap:7px}
-.sp-item::before{content:'';width:1px;height:14px;background:var(--brd2)}
-.sp-item:first-child::before{display:none}
-.sp-num{color:var(--txt2);font-weight:600}
 
-/* TICKER */
-#ticker{padding:0;background:var(--bg2);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);overflow:hidden}
-.ticker-track{display:flex;width:max-content;padding:18px 0}
-.ti{display:flex;align-items:center;gap:24px;padding:0 24px;font-size:13px;font-weight:500;color:var(--txt3);white-space:nowrap;letter-spacing:.02em}
-.ti .sep{width:3px;height:3px;border-radius:50%;background:var(--txt3);opacity:.4;flex-shrink:0}
+.fl,.fr,.ft,.fb,.fscale{transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
+.fl      {opacity:0;transform:translateX(-52px)}
+.fr      {opacity:0;transform:translateX(52px)}
+.ft      {opacity:0;transform:translateY(-36px)}
+.fb      {opacity:0;transform:translateY(36px)}
+.fscale  {opacity:0;transform:scale(.88)}
+.fl.on,.fr.on,.ft.on,.fb.on,.fscale.on{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.18s}.d3{transition-delay:.3s}.d4{transition-delay:.42s}
 
-/* SCROLL ANIMATION SECTION */
-#scroll-showcase{padding:120px 24px}
-.scroll-header{text-align:center;margin-bottom:60px}
-.scroll-header h2{margin-bottom:16px}
-.scroll-header p{max-width:560px;margin:0 auto;font-size:17px}
-.scroll-container{position:relative;height:700px;display:flex;align-items:flex-start;justify-content:center;overflow:visible}
-.scroll-sticky{position:sticky;top:80px;width:100%;max-width:1060px;margin:0 auto}
-.scroll-card-wrap{perspective:1200px;margin:0 auto}
-.scroll-card{
-  width:100%;
-  max-width:1000px;
-  height:560px;
-  margin:0 auto;
-  border:1px solid var(--brd2);
-  border-radius:20px;
-  overflow:hidden;
-  background:var(--bg2);
-  box-shadow:0 0 0 1px rgba(255,255,255,.04),0 40px 80px rgba(0,0,0,.8),0 80px 160px rgba(0,0,0,.4);
-  transform-origin:top center;
-  will-change:transform;
-  transition:transform .05s linear;
+/* ── BUTTON ─────────────────────────────────────── */
+.cta-btn{display:block;width:100%;background:#fff;color:#080808;font-size:15px;font-weight:900;
+  text-align:center;padding:20px 24px;border-radius:var(--rad);border:none;cursor:pointer;
+  letter-spacing:.04em;text-transform:uppercase;line-height:1.25;
+  animation:pulse-btn 2.8s ease-in-out infinite;transition:transform .2s,box-shadow .2s}
+.cta-btn:hover{transform:scale(1.02);box-shadow:0 0 48px rgba(255,255,255,.2);animation:none}
+.cta-btn small{display:block;font-size:11px;font-weight:500;opacity:.5;margin-top:5px;text-transform:none;letter-spacing:.01em}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav{background:rgba(8,8,8,.92);border-bottom:1px solid var(--brd);padding:14px 20px;
+  position:sticky;top:0;z-index:100;backdrop-filter:blur(20px)}
+.nav-in{max-width:var(--max);margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-size:14px;font-weight:900;color:var(--acc);letter-spacing:-.01em}
+.nav-pill{background:#fff;color:#080808;font-size:11px;font-weight:800;padding:7px 14px;
+  border-radius:50px;letter-spacing:.04em;text-transform:uppercase;transition:transform .2s;white-space:nowrap}
+.nav-pill:hover{transform:scale(1.03)}
+
+/* ── HERO ────────────────────────────────────────── */
+#hero{padding:0;background:var(--bg);overflow:hidden}
+.hero-photo{position:relative;width:100%;max-width:var(--max);margin:0 auto}
+.hero-photo img{width:100%;height:auto;display:block}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,8,1) 0%,rgba(8,8,8,.55) 45%,rgba(8,8,8,.55) 70%,rgba(8,8,8,.7) 100%);
+  padding:40px 20px 28px;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);border-radius:4px;color:rgba(255,255,255,.65);
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;margin-bottom:12px}
+.bdot{width:5px;height:5px;border-radius:50%;background:#fff;opacity:.6;animation:blink 2s ease-in-out infinite}
+.hero-overlay h1{font-size:clamp(24px,7vw,30px);font-weight:900;line-height:1.08;letter-spacing:-.025em;color:#fff;margin-bottom:10px}
+.hero-overlay h1 em{font-style:normal;color:rgba(255,255,255,.5)}
+.hero-bottom{padding:20px 20px 36px;max-width:var(--max);margin:0 auto;background:var(--bg)}
+.hero-bottom p{font-size:15px;color:var(--txt2);margin-bottom:22px;line-height:1.65}
+.hero-stats{display:flex;background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);overflow:hidden;margin-bottom:22px}
+.hs{flex:1;padding:14px 6px;text-align:center;border-right:1px solid var(--brd)}
+.hs:last-child{border-right:none}
+.hs-v{font-size:17px;font-weight:900;color:var(--acc);line-height:1}
+.hs-l{font-size:10px;color:var(--txt3);margin-top:3px;letter-spacing:.03em}
+
+/* ── TICKER ──────────────────────────────────────── */
+.tkr{overflow:hidden;background:var(--bg2);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);padding:11px 0}
+.tkr-track{display:flex;width:max-content}
+.ti{padding:0 22px;font-size:11px;font-weight:600;color:var(--txt3);white-space:nowrap;
+  display:flex;align-items:center;gap:8px;letter-spacing:.05em;text-transform:uppercase}
+.ti-sep{width:3px;height:3px;border-radius:50%;background:var(--brd2)}
+
+/* ── COMMON SECTION ─────────────────────────────── */
+.div-line{height:1px;background:var(--brd);margin:0}
+section{padding:52px 0}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--txt3);display:block;margin-bottom:11px}
+.sh{font-size:clamp(22px,6vw,27px);font-weight:900;line-height:1.14;letter-spacing:-.025em;color:var(--acc);margin-bottom:10px}
+.sh em{font-style:normal;color:var(--txt2)}
+.sp{font-size:14px;color:var(--txt2);line-height:1.65;margin-bottom:28px}
+
+/* ── CREATOR ─────────────────────────────────────── */
+#creator{background:var(--bg2);padding:0}
+.creator-img-wrap{position:relative;max-width:var(--max);margin:0 auto;overflow:hidden}
+.creator-img-wrap img{width:100%;height:auto;display:block;max-height:70vh;object-fit:cover;object-position:top center}
+.creator-img-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50%;
+  background:linear-gradient(to top,var(--bg2) 0%,transparent 100%);pointer-events:none}
+.creator-body{padding:24px 20px 40px;max-width:var(--max);margin:0 auto;background:var(--bg2)}
+.creator-tag{display:inline-block;background:rgba(255,255,255,.05);border:1px solid var(--brd2);
+  border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--txt3);padding:4px 12px;margin-bottom:14px}
+.creator-body h2{font-size:clamp(20px,6vw,26px);font-weight:900;line-height:1.14;letter-spacing:-.02em;margin-bottom:14px}
+.creator-body p{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:14px}
+.creator-badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px;margin-bottom:28px}
+.cbadge{background:var(--bg3);border:1px solid var(--brd2);border-radius:5px;
+  padding:8px 14px;font-size:12px;font-weight:700;color:var(--txt2)}
+
+/* ── PAIN ────────────────────────────────────────── */
+#pain{background:var(--bg3)}
+.pain-list{display:flex;flex-direction:column;gap:16px;margin-bottom:28px}
+.pain-item{display:flex;align-items:flex-start;gap:14px;background:var(--bg2);
+  border:1px solid rgba(238,0,0,.35);border-radius:12px;padding:20px 22px;
+  box-shadow:0 0 0 4px rgba(238,0,0,.08);
+  transition:border-color .2s,box-shadow .2s}
+.pain-item:hover{border-color:rgba(238,0,0,.55);box-shadow:0 0 0 4px rgba(238,0,0,.15)}
+.px{width:16px;height:16px;flex-shrink:0;margin-top:2px}
+.px svg{width:16px;height:16px;fill:#ee0000}
+.pain-item p{font-size:14px;color:var(--txt2);line-height:1.65;margin:0}
+.pain-item strong{color:var(--txt);font-weight:700}
+.pain-em{color:var(--txt3);font-style:normal}
+
+/* ── INCLUDES ────────────────────────────────────── */
+#includes{background:var(--bg)}
+.inc-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.inc-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg2);
+  border:1px solid var(--brd);border-radius:var(--rad);padding:14px;transition:border-color .2s}
+.inc-item:hover{border-color:var(--brd2)}
+.ichk{width:22px;height:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);
+  border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.ichk svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2.8;stroke-linecap:round;stroke-linejoin:round}
+.inc-n{font-size:14px;font-weight:700;color:var(--txt)}
+.inc-s{font-size:12px;color:var(--txt3);margin-top:2px;line-height:1.4}
+
+/* ── MODULES ─────────────────────────────────────── */
+#modules{background:var(--bg2)}
+.mod-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.mod-item{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--rad);
+  padding:16px;display:flex;align-items:flex-start;gap:12px;transition:border-color .2s}
+.mod-item:hover{border-color:var(--brd2)}
+.mn{font-size:11px;font-weight:800;color:var(--txt3);letter-spacing:.06em;flex-shrink:0;margin-top:2px;min-width:24px}
+.mh{font-size:14px;font-weight:800;color:var(--txt);margin-bottom:3px}
+.mp{font-size:12px;color:var(--txt3);line-height:1.5;margin:0}
+
+/* ── SHOWCASE 3D ─────────────────────────────────── */
+#showcase{padding:0;background:var(--bg3)}
+#sscroll-area{position:relative;height:160vh}
+#sscroll-pin{
+  position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:20px;padding:20px;overflow:hidden}
+.show-head{text-align:center;max-width:var(--max);width:100%}
+.show-head .eyebrow{margin-bottom:8px}
+.show-head .sh{font-size:clamp(18px,5vw,24px);margin-bottom:6px}
+.show-head p{font-size:13px;margin-bottom:0}
+#scrollCard{
+  width:100%;max-width:min(340px,80vw);
+  border-radius:18px;overflow:hidden;border:1px solid var(--brd2);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06),0 4px 12px rgba(0,0,0,.7),
+    0 40px 90px rgba(0,0,0,.92),0 100px 160px rgba(0,0,0,.5);
+  transform-origin:50% 50%;will-change:transform,opacity;background:var(--bg3)}
+#scrollCard img{width:100%;height:auto;display:block;max-height:52vh;object-fit:cover;object-position:center 30%}
+.show-caption{padding:24px 20px 48px;max-width:var(--max);margin:0 auto;text-align:center}
+.show-caption h3{font-size:18px;font-weight:900;color:var(--acc);margin-bottom:8px;letter-spacing:-.01em}
+.show-caption p{font-size:13px;color:var(--txt2);line-height:1.6}
+
+/* ── PROOF ───────────────────────────────────────── */
+#proof{background:var(--bg)}
+.proof-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.proof-card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);padding:20px}
+.proof-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.pav{width:38px;height:38px;border-radius:50%;background:var(--bg4);border:1px solid var(--brd2);
+  display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:var(--txt3);flex-shrink:0}
+.pname{font-size:14px;font-weight:800;color:var(--txt)}
+.pwhere{font-size:11px;color:var(--txt3);margin-top:1px}
+.pval{font-size:26px;font-weight:900;color:var(--acc);letter-spacing:-.025em;margin-bottom:8px;line-height:1}
+.pperiod{font-size:12px;color:var(--txt3);font-weight:500;margin-left:4px}
+.ptxt{font-size:13px;color:var(--txt2);line-height:1.6}
+
+/* ── PRICE / OFFER ───────────────────────────────── */
+#price{background:var(--bg2)}
+.offer-box{background:var(--bg3);border:1px solid var(--brd2);border-radius:16px;
+  padding:28px 22px;position:relative;overflow:hidden;margin-bottom:0}
+.offer-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);
+  width:340px;height:240px;background:radial-gradient(ellipse,rgba(255,255,255,.05) 0%,transparent 70%);pointer-events:none}
+.offer-eyebrow{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);margin-bottom:14px}
+.offer-headline{font-size:clamp(22px,6vw,26px);font-weight:900;line-height:1.15;letter-spacing:-.02em;margin-bottom:20px;color:var(--acc)}
+.offer-headline em{font-style:normal;color:var(--txt2)}
+.offer-includes{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.oi{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--txt2)}
+.oi-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.25);flex-shrink:0}
+.offer-price-row{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);
+  padding:20px;text-align:center;margin-bottom:20px}
+.op-old{font-size:14px;color:var(--txt3);text-decoration:line-through;margin-bottom:6px}
+.op-installment{font-size:13px;color:var(--txt3);margin-bottom:4px}
+.op-main{font-size:56px;font-weight:900;color:var(--acc);line-height:1;letter-spacing:-.04em;margin-bottom:4px}
+.op-main small{font-size:20px;font-weight:500;color:var(--txt3);letter-spacing:0;vertical-align:middle}
+.op-or{font-size:12px;color:var(--txt3);margin-bottom:4px}
+.op-full{font-size:20px;font-weight:900;color:var(--acc);letter-spacing:-.02em}
+.op-note{font-size:12px;color:var(--txt3);margin-top:6px}
+
+/* ── TIMER ───────────────────────────────────────── */
+.timer-box{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);
+  padding:16px;text-align:center;margin-bottom:20px}
+.timer-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:10px}
+.timer-digs{display:flex;align-items:center;justify-content:center;gap:8px}
+.td-b{background:var(--bg3);border:1px solid var(--brd2);border-radius:6px;
+  width:52px;height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.td-n{font-size:22px;font-weight:900;color:var(--acc);line-height:1}
+.td-l{font-size:9px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em}
+.td-sep{font-size:18px;font-weight:900;color:var(--brd2)}
+
+/* ── GUARANTEE ───────────────────────────────────── */
+#guarantee{background:var(--bg3);border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
+.gu-center{text-align:center}
+.gu-icon{width:52px;height:52px;background:rgba(255,255,255,.04);border:1px solid var(--brd2);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.gu-icon svg{width:24px;height:24px;stroke:rgba(255,255,255,.35);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.gu-badges{display:flex;flex-direction:column;gap:8px;margin-top:20px}
+.gb{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--brd);
+  border-radius:var(--rad);padding:13px 16px;font-size:13px;font-weight:600;color:var(--txt2)}
+.gb-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0}
+
+/* ── FAQ ─────────────────────────────────────────── */
+#faq{background:var(--bg)}
+.faq-list{display:flex;flex-direction:column;gap:8px;margin-bottom:28px}
+.faq-item{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);overflow:hidden;transition:border-color .2s}
+.faq-item.open{border-color:var(--brd2)}
+.faq-q{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px 18px;cursor:pointer;font-size:14px;font-weight:700;color:var(--txt);line-height:1.4;
+  background:transparent;border:none;width:100%;text-align:left}
+.faq-ico{flex-shrink:0;transition:transform .25s}
+.faq-ico svg{width:16px;height:16px;stroke:var(--txt3);fill:none;stroke-width:2;stroke-linecap:round}
+.faq-item.open .faq-ico{transform:rotate(180deg)}
+.faq-a{padding:0 18px 16px;font-size:13px;color:var(--txt2);line-height:1.65;display:none}
+.faq-item.open .faq-a{display:block}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer{background:var(--bg2);border-top:1px solid var(--brd);padding:32px 20px;text-align:center}
+.fl-logo{font-size:14px;font-weight:900;color:var(--acc);margin-bottom:16px}
+.fl-links{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.fl-links a{font-size:12px;color:var(--txt3);transition:color .2s}
+.fl-links a:hover{color:var(--txt2)}
+.fl-dis{font-size:11px;color:var(--txt3);line-height:1.65;max-width:440px;margin:0 auto}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:390px){
+  :root{--rad:8px}
+  .hero-overlay h1{font-size:22px}
+  .hero-bottom p{font-size:14px}
+  .hs-v{font-size:15px}
+  .cta-btn{font-size:13px;padding:17px 18px}
+  .sh{font-size:20px}
+  .creator-body h2{font-size:18px}
+  .creator-body p{font-size:13px}
+  .offer-headline{font-size:20px}
+  .op-main{font-size:44px}
+  .td-b{width:44px;height:44px}
+  .td-n{font-size:18px}
+  .pain-item{padding:16px 16px}
+  .inc-item,.mod-item{padding:12px}
+  .proof-card{padding:16px}
+  .pval{font-size:22px}
+  .faq-q{font-size:13px;padding:14px 16px}
+  footer{padding:24px 16px}
 }
-.scroll-card img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
-.scroll-card-placeholder{width:100%;height:100%;background:var(--bg3);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px}
-.scroll-card-placeholder .ph-label{font-size:13px;color:var(--txt3);letter-spacing:.08em;text-transform:uppercase}
-.scroll-card-placeholder .ph-bar{width:180px;height:2px;background:var(--brd2);border-radius:2px;overflow:hidden}
-.scroll-card-placeholder .ph-bar::after{content:'';display:block;width:40%;height:100%;background:rgba(255,255,255,.15);border-radius:2px;animation:barslide 2s ease-in-out infinite}
-@keyframes barslide{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
-
-/* PAIN */
-.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:var(--rad);overflow:hidden;margin-top:56px}
-.pc{background:var(--bg2);padding:40px;transition:background .3s}
-.pc:hover{background:var(--bg3)}
-.ptag{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:14px}
-.pc h3{margin-bottom:10px;font-size:16px}
-.pc p{font-size:15px;line-height:1.6;margin:0}
-.pc-icon{width:32px;height:32px;border:1px solid var(--brd2);border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.pc-icon svg{width:16px;height:16px;stroke:var(--txt3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* MECHANISM */
-#mechanism{background:var(--bg2)}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:var(--rad);overflow:hidden;margin-top:56px}
-.step{background:var(--bg2);padding:36px;transition:background .3s}
-.step:hover{background:var(--bg3)}
-.step-num{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--txt3);margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.step-num::before{content:attr(data-n);font-size:10px;color:var(--txt3);font-variant-numeric:tabular-nums}
-.step h3{font-size:16px;margin-bottom:10px}
-.step p{font-size:14px;line-height:1.6;margin:0}
-
-/* FOR WHO */
-.fw-split{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--brd);border:1px solid var(--brd);border-radius:var(--rad);overflow:hidden;margin-top:56px}
-.fw-col{background:var(--bg2);padding:48px}
-.check-list{list-style:none;display:flex;flex-direction:column;gap:16px}
-.check-list li{display:flex;align-items:flex-start;gap:14px;font-size:16px;color:var(--txt2);line-height:1.55}
-.chk{width:20px;height:20px;border:1px solid var(--brd2);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
-.chk svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
-.fw-stats{display:flex;flex-direction:column;gap:24px}
-.fws{border-top:1px solid var(--brd);padding-top:24px}
-.fws:first-child{border-top:none;padding-top:0}
-.fws-val{font-size:48px;font-weight:800;color:var(--acc);letter-spacing:-.03em;line-height:1}
-.fws-lbl{font-size:14px;color:var(--txt3);margin-top:6px}
-.currencies{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
-.cur{border:1px solid var(--brd2);border-radius:4px;padding:8px 18px;font-size:14px;font-weight:600;color:var(--acc);background:var(--bg3)}
-
-/* INCLUDES / CURRICULUM */
-#includes{background:var(--bg2)}
-.curriculum{margin-top:56px}
-.cur-section{margin-bottom:4px}
-.cur-section-header{background:var(--bg3);border:1px solid var(--brd);border-radius:var(--rad) var(--rad) 0 0;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .2s}
-.cur-section-header:hover{background:var(--bg4)}
-.cur-section-header h3{font-size:15px;margin:0;font-weight:600}
-.cur-section-header .cur-meta{font-size:12px;color:var(--txt3);display:flex;align-items:center;gap:16px}
-.cur-lessons{border:1px solid var(--brd);border-top:none;border-radius:0 0 var(--rad) var(--rad);overflow:hidden}
-.cur-lesson{display:flex;align-items:center;gap:16px;padding:14px 28px;border-bottom:1px solid var(--brd);transition:background .2s}
-.cur-lesson:last-child{border-bottom:none}
-.cur-lesson:hover{background:var(--bg3)}
-.lesson-icon{width:24px;height:24px;border:1px solid var(--brd2);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.lesson-icon svg{width:11px;height:11px;stroke:var(--txt3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.lesson-title{font-size:14px;color:var(--txt2);flex:1}
-.lesson-dur{font-size:12px;color:var(--txt3)}
-.cur-section-header .arr{width:16px;height:16px;stroke:var(--txt3);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s;flex-shrink:0}
-.cur-section.open .arr{transform:rotate(180deg)}
-.cur-section.open .cur-lessons{display:block}
-.cur-section:not(.open) .cur-lessons{display:none}
-
-/* BONUSES */
-.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.bonus-card{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);padding:32px;position:relative;transition:border-color .3s,box-shadow .3s}
-.bonus-card:hover{border-color:var(--brd2);box-shadow:0 0 40px rgba(255,255,255,.04)}
-.bonus-tag{position:absolute;top:16px;right:16px;background:var(--bg4);border:1px solid var(--brd2);border-radius:3px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--txt3);letter-spacing:.1em;text-transform:uppercase}
-.bonus-val{font-size:13px;font-weight:600;color:var(--txt3);margin-top:20px;text-decoration:line-through}
-.bonus-val-free{font-size:14px;font-weight:700;color:var(--acc)}
-
-/* PRICE */
-.price-block{margin-top:56px;text-align:center;padding:60px;background:var(--bg2);border:1px solid var(--brd);border-radius:16px;position:relative;overflow:hidden}
-.price-block::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:400px;height:200px;background:radial-gradient(ellipse,rgba(255,255,255,.04) 0%,transparent 70%);pointer-events:none}
-.p-label{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--txt3);margin-bottom:16px}
-.p-old{font-size:18px;color:var(--txt3);text-decoration:line-through;margin-bottom:10px}
-.p-cur{font-size:72px;font-weight:800;color:var(--acc);line-height:1;letter-spacing:-.04em;margin-bottom:6px}
-.p-cur small{font-size:28px;font-weight:400;color:var(--txt3);letter-spacing:0}
-.p-note{font-size:14px;color:var(--txt3);margin-bottom:36px}
-.price-list{display:flex;flex-direction:column;gap:10px;margin:0 auto 40px;max-width:420px;text-align:left}
-.price-list-item{display:flex;align-items:center;gap:12px;font-size:15px;color:var(--txt2)}
-.price-list-item .chk{flex-shrink:0}
-
-/* TESTIMONIALS */
-.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
-.tc{background:var(--bg2);border:1px solid var(--brd);border-radius:var(--rad);padding:32px;transition:border-color .3s,box-shadow .3s}
-.tc:hover{border-color:var(--brd2);box-shadow:0 0 32px rgba(255,255,255,.03)}
-.th{display:flex;align-items:center;gap:12px;margin-bottom:24px}
-.av{width:40px;height:40px;border-radius:50%;background:var(--bg4);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;font-weight:700;color:var(--txt3)}
-.tm .name{font-weight:700;font-size:15px;color:var(--acc)}
-.tm .store{font-size:12px;color:var(--txt3)}
-.rev{display:inline-flex;align-items:baseline;gap:6px;margin-bottom:16px}
-.rev .amt{font-size:28px;font-weight:800;color:var(--acc);letter-spacing:-.02em}
-.rev .per{font-size:12px;color:var(--txt3)}
-.tt{font-size:14px;color:var(--txt2);line-height:1.65}
-.markets-row{display:flex;justify-content:center;gap:10px;margin-top:48px;flex-wrap:wrap}
-.mkt{border:1px solid var(--brd);border-radius:4px;padding:8px 18px;font-size:13px;color:var(--txt3);font-weight:500;background:var(--bg2)}
-
-/* GUARANTEE */
-#guarantee{background:var(--bg2)}
-.gu-inner{max-width:680px;margin:0 auto;text-align:center;padding:60px;background:var(--bg3);border:1px solid var(--brd);border-radius:16px}
-.gu-icon{width:60px;height:60px;border:1px solid var(--brd2);border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 28px}
-.gu-icon svg{width:28px;height:28px;stroke:var(--txt2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.gu-text{font-size:17px;color:var(--txt2);line-height:1.75;margin-bottom:32px}
-.gbadges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.gb{border:1px solid var(--brd2);border-radius:4px;padding:8px 16px;font-size:13px;font-weight:600;color:var(--acc);display:flex;align-items:center;gap:7px;background:var(--bg2)}
-.gb svg{width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
-
-/* CTA FINAL */
-#cta-final{text-align:center}
-.ctaf{max-width:720px;margin:0 auto}
-.ctaf-sub{font-size:19px;color:var(--txt2);margin-bottom:44px;line-height:1.6}
-.urg{margin-top:18px;font-size:13px;color:var(--txt3);display:flex;align-items:center;justify-content:center;gap:8px;letter-spacing:.02em}
-.urg-dot{width:5px;height:5px;border-radius:50%;background:#fff;opacity:.4;animation:blink 2s ease-in-out infinite}
-
-/* FOOTER */
-footer{background:var(--bg2);border-top:1px solid var(--brd);padding:48px 24px;text-align:center}
-.flogo{font-size:16px;font-weight:800;color:var(--acc);margin-bottom:24px;letter-spacing:-.01em}
-.flinks{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-bottom:28px}
-.flinks a{font-size:13px;color:var(--txt3);transition:color .3s}
-.flinks a:hover{color:var(--txt2)}
-.fdis{font-size:12px;color:var(--txt3);max-width:640px;margin:0 auto;line-height:1.65}
-
-/* SECTION SPLIT HEADER */
-.sec-split{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:56px;flex-wrap:wrap}
-.sec-split .sec-label{margin-bottom:10px}
-
-/* RESPONSIVE */
-@media(max-width:1024px){
-  .steps{grid-template-columns:1fr 1fr}
-  .bonus-grid{grid-template-columns:1fr 1fr}
-  .test-grid{grid-template-columns:1fr 1fr}
+@media(min-width:480px) and (max-width:767px){
+  :root{--max:460px}
+  .hero-overlay h1{font-size:clamp(26px,7vw,32px)}
 }
-@media(max-width:768px){
-  section{padding:80px 20px}
-  .pain-grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr}
-  .fw-split{grid-template-columns:1fr}
-  .bonus-grid{grid-template-columns:1fr}
-  .test-grid{grid-template-columns:1fr}
-  .hero-actions{flex-direction:column;align-items:center}
-  .btn{width:100%;justify-content:center}
-  .nav-cta{display:none}
-  .scroll-card{height:320px}
-  .scroll-container{height:420px}
-  .price-block{padding:40px 24px}
-  .gu-inner{padding:40px 24px}
-  .fw-split .fw-col{padding:36px 28px}
+@media(min-width:768px){
+  :root{--max:640px}
+  .wrap{padding:0 28px}
+  .hero-overlay h1{font-size:36px}
+  .sh{font-size:30px}
+  .hero-stats{gap:0}
+  .hs-v{font-size:20px}
+  .creator-body h2{font-size:28px}
+  .offer-headline{font-size:28px}
+  .op-main{font-size:64px}
+  .pain-list,.inc-list,.mod-list{gap:14px}
+  section{padding:64px 0}
+  nav{padding:16px 28px}
+  .show-head .sh{font-size:26px}
+  #scrollCard{max-width:min(400px,70vw)}
 }
-@media(max-width:480px){
-  h1{font-size:30px}
-  h2{font-size:24px}
-  .p-cur{font-size:56px}
+@media(min-width:1024px){
+  :root{--max:720px}
+  .hero-overlay h1{font-size:42px}
+  .sh{font-size:34px}
+  .creator-img-wrap img{max-height:60vh}
+  #scrollCard{max-width:360px}
+  .show-head .sh{font-size:28px}
 }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '945244561671219');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=945244561671219&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
-<body>
+<body style="background:#080808">
 
+<!-- NAV -->
 <nav>
-  <div class="nav-logo">Make Money Club <span class="nav-logo-dot"></span></div>
-  <a href="#cta-final" class="nav-cta">Quero Entrar &rarr;</a>
+  <div class="nav-in">
+    <div class="nav-logo">Make Money Club</div>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="grid-bg">
-<div class="container">
-<div class="hero-inner">
-  <div class="hero-badge fi">
-    <span class="badge-dot"></span>
-    Sistema Ativo &mdash; +2.400 Lojas Criadas
+<section id="hero">
+  <div class="hero-photo">
+    <img src="hero-mockup.png" alt="Make Money Club">
+    <div class="hero-overlay">
+      <div class="hero-badge"><span class="bdot"></span>Sistema lançado em 2026</div>
+      <h1>A IA cria sua loja.<br>Voc&ecirc; lucra em <em>Euro, D&oacute;lar e Libra.</em></h1>
+    </div>
   </div>
-  <h1 class="fi d1">Crie lojas de dropshipping validadas na Europa, EUA e UK e lucre em Euro, D&oacute;lar e Libra.</h1>
-  <p class="hero-sub fi d2">Um sistema completo de IA que cria, valida e estrutura sua loja para mercados internacionais. Sem barreira de idioma. Sem erro de iniciante. Com um curso completo ensinando cada etapa do processo.</p>
-  <div class="hero-actions fi d3">
-    <a href="#cta-final" class="btn">QUERO MEU ACESSO AGORA &rarr;</a>
-    <a href="#includes" class="btn btn-outline">Ver o que est&aacute; incluso</a>
+  <div class="hero-bottom">
+    <p>Sistema completo de dropshipping internacional. A IA constr&oacute;i, valida e estrutura tudo &mdash; voc&ecirc; escolhe o pa&iacute;s e coleta as vendas em moeda forte.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-v">+2.400</div><div class="hs-l">Lojas ativas</div></div>
+      <div class="hs"><div class="hs-v">3</div><div class="hs-l">Moedas</div></div>
+      <div class="hs"><div class="hs-v">5</div><div class="hs-l">Pa&iacute;ses</div></div>
+      <div class="hs"><div class="hs-v">7d</div><div class="hs-l">Garantia</div></div>
+    </div>
+    <div class="cta-glow-wrap"><a href="#creator" class="cta-btn">ENTENDA COMO O SISTEMA FUNCIONA <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-left: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg><small>Role para baixo para continuar lendo</small></a></div>
   </div>
-  <div class="sp-row fi d4">
-    <div class="sp-item"><span class="sp-num">+2.400</span>&nbsp;lojas criadas</div>
-    <div class="sp-item"><span class="sp-num">3</span>&nbsp;moedas fortes</div>
-    <div class="sp-item"><span class="sp-num">7 dias</span>&nbsp;de garantia</div>
-    <div class="sp-item">Acesso vitalício</div>
-  </div>
-</div>
-</div>
 </section>
 
 <!-- TICKER -->
-<div id="ticker"><div class="ticker-track" id="ttrack"></div></div>
+<div class="tkr"><div class="tkr-track" id="tkrTrack"></div></div>
+<div class="div-line"></div>
 
-<!-- SCROLL SHOWCASE -->
-<section id="scroll-showcase">
-<div class="container">
-  <div class="scroll-header fi">
-    <p class="sec-label">// A plataforma completa</p>
-    <h2>Tudo em um &uacute;nico lugar.<br>Sistema, curso e suporte.</h2>
-    <p style="margin-top:16px">Ao entrar, voc&ecirc; acessa o sistema de IA, as aulas completas, os b&ocirc;nus e a comunidade&nbsp;&mdash;&nbsp;tudo em uma plataforma organizada e pronta para usar.</p>
+<!-- CREATOR -->
+<section id="creator" style="padding:0">
+  <div class="creator-img-wrap">
+    <img src="creator.png" alt="Criador do sistema">
   </div>
-</div>
-<div id="scroll-anim-wrapper" style="padding:0 24px">
-  <div class="scroll-card-wrap" style="max-width:1000px;margin:0 auto">
-    <div class="scroll-card" id="scrollCard">
-      <img src="screencapture-app-hub-la-m-IZJZIbdVbfujKEfgg13a-2026-05-25-21_25_00.png" alt="Plataforma Make Money Club" style="width:100%;height:100%;object-fit:cover;object-position:top center;display:block;border-radius:18px">
+  <div class="creator-body">
+    <div class="creator-tag fr d1">Quem est&aacute; por tr&aacute;s do sistema</div>
+    <h2 class="fl d1">Fez 6 d&iacute;gitos no dropshipping internacional e transformou tudo em intelig&ecirc;ncia artificial</h2>
+    <p class="fb d2">Ap&oacute;s acumular mais de R$500.000 vendendo para Europa e EUA &mdash; sem falar ingl&ecirc;s, sem estoque e sem sair do Brasil &mdash; dedicou os &uacute;ltimos anos construindo um sistema de IA capaz de replicar cada etapa do processo.</p>
+    <p class="fb d3">Em 2026, lan&ccedil;ou o <strong>Make Money Club</strong>: o mesmo sistema que usou para faturar em moeda forte, agora dispon&iacute;vel para qualquer pessoa que queira criar renda real no mercado internacional.</p>
+    <div class="creator-badges">
+      <span class="cbadge fr d1">+R$500k em vendas</span>
+      <span class="cbadge fr d2">5 pa&iacute;ses operados</span>
+      <span class="cbadge fr d3">Sistema lan&ccedil;ado 2026</span>
     </div>
+    <div class="cta-glow-wrap fb d4"><a href="#pain" class="cta-btn">CONTINUAR LENDO <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-left: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg><small>Veja por que a maioria das pessoas falha</small></a></div>
   </div>
-</div>
 </section>
 
-<hr class="sec-div">
+<div class="div-line"></div>
 
-<!-- DOR -->
+<!-- PAIN -->
 <section id="pain">
-<div class="container">
-  <p class="sec-label fi">// Por que 97% falham no dropshipping</p>
-  <h2 class="fi d1">N&atilde;o &eacute; falta de esfor&ccedil;o.<br>&Eacute; falta do sistema certo.</h2>
-  <div class="pain-grid fi d2">
-    <div class="pc">
-      <div class="pc-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+  <div class="wrap">
+    <span class="eyebrow ft">Por que a maioria falha</span>
+    <h2 class="sh fl d1">Se voc&ecirc; j&aacute; tentou e <span class="pain-em">n&atilde;o funcionou,</span> n&atilde;o foi azar &mdash; foi sistema errado.</h2>
+    <div class="pain-list">
+      <div class="pain-item fl d1">
+        <div class="px"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.30761 1.5L1.5 5.30761L1.5 10.6924L5.30761 14.5H10.6924L14.5 10.6924V5.30761L10.6924 1.5H5.30761ZM5.10051 0C4.83529 0 4.58094 0.105357 4.3934 0.292893L0.292893 4.3934C0.105357 4.58094 0 4.83529 0 5.10051V10.8995C0 11.1647 0.105357 11.4191 0.292894 11.6066L4.3934 15.7071C4.58094 15.8946 4.83529 16 5.10051 16H10.8995C11.1647 16 11.4191 15.8946 11.6066 15.7071L15.7071 11.6066C15.8946 11.4191 16 11.1647 16 10.8995V5.10051C16 4.83529 15.8946 4.58093 15.7071 4.3934L11.6066 0.292893C11.4191 0.105357 11.1647 0 10.8995 0H5.10051ZM8.75 3.75V4.5V8L8.75 8.75H7.25V8V4.5V3.75H8.75ZM8 12C8.55229 12 9 11.5523 9 11C9 10.4477 8.55229 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z" fill="#ee0000"/></svg></div>
+        <p><strong>Vendeu no mercado errado</strong> &mdash; Brasil: margens negativas, concorr&ecirc;ncia predatória. Trabalhar em real que desvaloriza n&atilde;o constr&oacute;i patrim&ocirc;nio.</p>
       </div>
-      <div class="ptag">Erro 01</div>
-      <h3>Tentou vender no Brasil</h3>
-      <p>Margens baixas, mercado saturado, concorr&ecirc;ncia predatória. Trabalhar muito para ganhar em real desvalorizado n&atilde;o faz sentido.</p>
-    </div>
-    <div class="pc">
-      <div class="pc-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      <div class="pain-item fr d2">
+        <div class="px"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.30761 1.5L1.5 5.30761L1.5 10.6924L5.30761 14.5H10.6924L14.5 10.6924V5.30761L10.6924 1.5H5.30761ZM5.10051 0C4.83529 0 4.58094 0.105357 4.3934 0.292893L0.292893 4.3934C0.105357 4.58094 0 4.83529 0 5.10051V10.8995C0 11.1647 0.105357 11.4191 0.292894 11.6066L4.3934 15.7071C4.58094 15.8946 4.83529 16 5.10051 16H10.8995C11.1647 16 11.4191 15.8946 11.6066 15.7071L15.7071 11.6066C15.8946 11.4191 16 11.1647 16 10.8995V5.10051C16 4.83529 15.8946 4.58093 15.7071 4.3934L11.6066 0.292893C11.4191 0.105357 11.1647 0 10.8995 0H5.10051ZM8.75 3.75V4.5V8L8.75 8.75H7.25V8V4.5V3.75H8.75ZM8 12C8.55229 12 9 11.5523 9 11C9 10.4477 8.55229 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z" fill="#ee0000"/></svg></div>
+        <p><strong>Copiou loja de outra pessoa</strong> &mdash; estrutura errada pro pa&iacute;s alvo, copy que n&atilde;o converte, produto sem demanda local.</p>
       </div>
-      <div class="ptag">Erro 02</div>
-      <h3>Copiou loja de outro</h3>
-      <p>Estrutura errada para o pa&iacute;s alvo, produto inadequado para o mercado local. O que funcionou para outra pessoa n&atilde;o funciona da mesma forma.</p>
-    </div>
-    <div class="pc">
-      <div class="pc-icon">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <div class="pain-item fl d3">
+        <div class="px"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.30761 1.5L1.5 5.30761L1.5 10.6924L5.30761 14.5H10.6924L14.5 10.6924V5.30761L10.6924 1.5H5.30761ZM5.10051 0C4.83529 0 4.58094 0.105357 4.3934 0.292893L0.292893 4.3934C0.105357 4.58094 0 4.83529 0 5.10051V10.8995C0 11.1647 0.105357 11.4191 0.292894 11.6066L4.3934 15.7071C4.58094 15.8946 4.83529 16 5.10051 16H10.8995C11.1647 16 11.4191 15.8946 11.6066 15.7071L15.7071 11.6066C15.8946 11.4191 16 11.1647 16 10.8995V5.10051C16 4.83529 15.8946 4.58093 15.7071 4.3934L11.6066 0.292893C11.4191 0.105357 11.1647 0 10.8995 0H5.10051ZM8.75 3.75V4.5V8L8.75 8.75H7.25V8V4.5V3.75H8.75ZM8 12C8.55229 12 9 11.5523 9 11C9 10.4477 8.55229 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z" fill="#ee0000"/></svg></div>
+        <p><strong>Investiu em tr&aacute;fego sem validar</strong> &mdash; produto errado + pa&iacute;s errado = preju&iacute;zo garantido. Isso pode ser evitado com o m&eacute;todo certo.</p>
       </div>
-      <div class="ptag">Erro 03</div>
-      <h3>Barreira do idioma</h3>
-      <p>N&atilde;o sabia configurar loja em ingl&ecirc;s, alem&atilde;o ou franc&ecirc;s. N&atilde;o conseguiu criar copy que converte no mercado europeu.</p>
-    </div>
-    <div class="pc">
-      <div class="pc-icon">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <div class="pain-item fr d4">
+        <div class="px"><svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.30761 1.5L1.5 5.30761L1.5 10.6924L5.30761 14.5H10.6924L14.5 10.6924V5.30761L10.6924 1.5H5.30761ZM5.10051 0C4.83529 0 4.58094 0.105357 4.3934 0.292893L0.292893 4.3934C0.105357 4.58094 0 4.83529 0 5.10051V10.8995C0 11.1647 0.105357 11.4191 0.292894 11.6066L4.3934 15.7071C4.58094 15.8946 4.83529 16 5.10051 16H10.8995C11.1647 16 11.4191 15.8946 11.6066 15.7071L15.7071 11.6066C15.8946 11.4191 16 11.1647 16 10.8995V5.10051C16 4.83529 15.8946 4.58093 15.7071 4.3934L11.6066 0.292893C11.4191 0.105357 11.1647 0 10.8995 0H5.10051ZM8.75 3.75V4.5V8L8.75 8.75H7.25V8V4.5V3.75H8.75ZM8 12C8.55229 12 9 11.5523 9 11C9 10.4477 8.55229 10 8 10C7.44772 10 7 10.4477 7 11C7 11.5523 7.44772 12 8 12Z" fill="#ee0000"/></svg></div>
+        <p><strong>A barreira do idioma travou tudo</strong> &mdash; sem saber montar loja em ingl&ecirc;s, alem&atilde;o ou franc&ecirc;s, voc&ecirc; fica fora dos mercados que realmente pagam bem.</p>
       </div>
-      <div class="ptag">Erro 04</div>
-      <h3>Investiu em tr&aacute;fego sem valida&ccedil;&atilde;o</h3>
-      <p>Produto errado + pa&iacute;s errado = dinheiro jogado fora. Sem valida&ccedil;&atilde;o pr&eacute;via, qualquer investimento em an&uacute;ncio vira preju&iacute;zo.</p>
     </div>
+    <p class="fscale d3" style="text-align:center;font-size:15px;color:var(--txt);font-weight:700">O Make Money Club resolve cada um desses pontos. <em style="font-style:normal;color:var(--txt2)">Automaticamente.</em></p>
+    <div class="cta-glow-wrap fb d4" style="margin-top:22px"><a href="#includes" class="cta-btn">VER O QUE ESTÁ INCLUSO <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-left: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg><small>Role para baixo para descobrir</small></a></div>
   </div>
-</div>
 </section>
 
-<hr class="sec-div">
+<div class="div-line"></div>
 
-<!-- MECANISMO -->
-<section id="mechanism" class="dot-bg">
-<div class="container">
-  <p class="sec-label fi">// Como funciona</p>
-  <h2 class="fi d1">A IA cria. Voc&ecirc; configura.<br>O mundo compra.</h2>
-  <div class="steps fi d2">
-    <div class="step">
-      <div class="step-num" data-n="01">Passo 01</div>
-      <h3>Escolha o Mercado-Alvo</h3>
-      <p>EUA, UK, Alemanha, Fran&ccedil;a, Espanha &mdash; voc&ecirc; decide onde vender. O sistema conhece as regras e comportamento de consumo de cada pa&iacute;s.</p>
+<!-- INCLUDES -->
+<section id="includes">
+  <div class="wrap">
+    <span class="eyebrow ft">O que voc&ecirc; recebe</span>
+    <h2 class="sh fr d1">Tudo para <em>sua loja global funcionar</em> do zero</h2>
+    <div class="inc-list">
+      <div class="inc-item fl d1">
+        <div class="ichk"><svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+        <div><div class="inc-n">Sistema de IA para criar lojas globais</div><div class="inc-s">Constr&oacute;i lojas validadas automaticamente, adaptadas para cada pa&iacute;s</div></div>
+      </div>
+      <div class="inc-item fr d2">
+        <div class="ichk"><svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+        <div><div class="inc-n">Curso completo &mdash; 33+ aulas em v&iacute;deo</div><div class="inc-s">Passo a passo desde a configura&ccedil;&atilde;o at&eacute; a primeira venda e escala</div></div>
+      </div>
+      <div class="inc-item fl d3">
+        <div class="ichk"><svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+        <div><div class="inc-n">Banco de nichos &mdash; EUA, UK, DE, FR, ES</div><div class="inc-s">Biblioteca com nichos validados e dados reais de demanda</div></div>
+      </div>
+      <div class="inc-item fr d4">
+        <div class="ichk"><svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+        <div><div class="inc-n">Scripts de copy multil&iacute;ngue com IA</div><div class="inc-s">Textos que convertem em ingl&ecirc;s, alem&atilde;o e franc&ecirc;s &mdash; gerados automaticamente</div></div>
+      </div>
+      <div class="inc-item fl d1">
+        <div class="ichk"><svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+        <div><div class="inc-n">Templates de an&uacute;ncios por pa&iacute;s e nicho</div><div class="inc-s">Criativos e textos testados para Meta Ads e Google Ads</div></div>
+      </div>
+      <div class="inc-item fr d2">
+        <div class="ichk"><svg viewBox="0 0 12 12"><polyline points="1.5,6 5,9.5 10.5,2.5"/></svg></div>
+        <div><div class="inc-n">Comunidade exclusiva + suporte</div><div class="inc-s">Grupo privado de dropshippers globais e suporte especializado</div></div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num" data-n="02">Passo 02</div>
-      <h3>IA Valida Nicho e Produto</h3>
-      <p>O sistema analisa o mercado local e seleciona produtos com demanda real, margem saud&aacute;vel e baixa satura&ccedil;&atilde;o no pa&iacute;s escolhido.</p>
-    </div>
-    <div class="step">
-      <div class="step-num" data-n="03">Passo 03</div>
-      <h3>Loja Configurada Automaticamente</h3>
-      <p>Estrutura, textos, moeda, idioma &mdash; tudo gerado pela IA para o mercado alvo. Nenhum detalhe t&eacute;cnico fica pra voc&ecirc; resolver do zero.</p>
-    </div>
-    <div class="step">
-      <div class="step-num" data-n="04">Passo 04</div>
-      <h3>Produto Replic&aacute;vel por Pa&iacute;s</h3>
-      <p>Um modelo que funciona pode ser clonado para outros mercados. Um sistema, m&uacute;ltiplos pa&iacute;ses, renda em moedas diferentes.</p>
-    </div>
-    <div class="step">
-      <div class="step-num" data-n="05">Passo 05</div>
-      <h3>Sem Estoque, Sem Risco</h3>
-      <p>Modelo dropshipping puro: voc&ecirc; vende, o fornecedor envia diretamente ao cliente. Zero necessidade de capital em estoque.</p>
-    </div>
-    <div class="step">
-      <div class="step-num" data-n="06">Passo 06</div>
-      <h3>Escala em Moeda Forte</h3>
-      <p>Cada venda em Euro, D&oacute;lar ou Libra. Voc&ecirc; deixa de trabalhar em real e passa a receber em moeda que valoriza.</p>
-    </div>
+    <div class="cta-glow-wrap fb d3"><a href="#modules" class="cta-btn">VER OS MÓDULOS DO CURSO <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: text-bottom; margin-left: 4px;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg><small>Role para baixo para ver a grade completa</small></a></div>
   </div>
-</div>
 </section>
 
-<hr class="sec-div">
+<div class="div-line"></div>
 
-<!-- PARA QUEM -->
-<section id="for-who">
-<div class="container">
-  <p class="sec-label fi">// Para quem &eacute; este sistema</p>
-  <h2 class="fi d1">Feito para quem quer<br>lucrar na gringa de verdade.</h2>
-  <div class="fw-split fi d2">
-    <div class="fw-col">
-      <ul class="check-list">
-        <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Brasileiros que querem vender para o mercado europeu e americano</li>
-        <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Quem nunca fez dropshipping mas quer come&ccedil;ar com o m&eacute;todo correto</li>
-        <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Quem j&aacute; tentou e perdeu dinheiro usando estrat&eacute;gia errada</li>
-        <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Quem quer um sistema replic&aacute;vel, sem depender de um &uacute;nico produto</li>
-        <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Quem quer receber em moeda forte &mdash; Euro, D&oacute;lar e Libra</li>
-        <li><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Quem quer que a IA fa&ccedil;a o trabalho t&eacute;cnico e estrutural da loja</li>
-      </ul>
+<!-- MODULES -->
+<section id="modules">
+  <div class="wrap">
+    <span class="eyebrow ft">Conte&uacute;do do curso</span>
+    <h2 class="sh fl d1"><em>6 m&oacute;dulos</em> do zero &agrave; primeira venda em moeda forte</h2>
+    <div class="mod-list">
+      <div class="mod-item fl d1"><div class="mn">01</div><div><div class="mh">Sistema de IA &mdash; Configura&ccedil;&atilde;o Completa</div><div class="mp">Como usar o sistema, gerar a primeira loja e ajustar por mercado alvo.</div></div></div>
+      <div class="mod-item fr d2"><div class="mn">02</div><div><div class="mh">Banco de Nichos por Pa&iacute;s</div><div class="mp">Nichos com dados de demanda real para EUA, UK, Alemanha e Fran&ccedil;a.</div></div></div>
+      <div class="mod-item fl d3"><div class="mn">03</div><div><div class="mh">Estrutura de Loja por Mercado</div><div class="mp">Layout, pagamento, idioma e conformidade legal para cada pa&iacute;s.</div></div></div>
+      <div class="mod-item fr d4"><div class="mn">04</div><div><div class="mh">Copy Multil&iacute;ngue com IA</div><div class="mp">Headlines e CTAs que convertem em ingl&ecirc;s, alem&atilde;o e franc&ecirc;s.</div></div></div>
+      <div class="mod-item fl d1"><div class="mn">05</div><div><div class="mh">Valida&ccedil;&atilde;o Antes do Tr&aacute;fego</div><div class="mp">Valide produto e mercado antes de gastar qualquer centavo em an&uacute;ncio.</div></div></div>
+      <div class="mod-item fr d2"><div class="mn">06</div><div><div class="mh">Escala Replic&aacute;vel em 3 Moedas</div><div class="mp">Clone o modelo para outros pa&iacute;ses. Renda em EUR, USD e GBP ao mesmo tempo.</div></div></div>
     </div>
-    <div class="fw-col">
-      <div class="fw-stats">
-        <div class="fws">
-          <div class="fws-val" id="main-cnt">+2.400</div>
-          <div class="fws-lbl">Lojas ativas em opera&ccedil;&atilde;o por membros reais</div>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- GLOBAL MARKET MAP -->
+<section id="global-market" style="background:#080808;padding:80px 0;overflow:hidden">
+<style>
+.gm-wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gm-header {
+  text-align: center;
+  max-width: 700px;
+  margin-bottom: 40px;
+}
+.gm-map-container {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 2.2/1;
+  position: relative;
+  background: transparent;
+  margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .gm-map-container {
+    aspect-ratio: 1.2/1;
+  }
+}
+/* Animations */
+@keyframes mapDrawPath {
+  0%, 10% { stroke-dashoffset: 1; opacity: 1; }
+  40%, 80% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes mapMoveDot {
+  0%, 10% { offset-distance: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  35% { opacity: 1; }
+  40%, 100% { offset-distance: 100%; opacity: 0; }
+}
+@keyframes mapPopLabel {
+  0%, 35% { opacity: 0; transform: translateY(5px); }
+  45%, 80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
+}
+</style>
+
+<div class="gm-wrapper">
+  <div class="gm-header">
+    <span class="eyebrow fscale" style="color:rgba(14,165,233,0.7);letter-spacing:.14em">🌐 ALCANCE GLOBAL</span>
+    <h2 class="sh fscale d1" style="color:#fff;margin-top:10px">
+      Sua loja vende para <em style="color:#0ea5e9">qualquer país do mundo.</em>
+    </h2>
+    <p class="fscale d2" style="font-size:16px;color:rgba(255,255,255,0.5);line-height:1.6;margin-top:16px">
+      Enquanto você dorme no Brasil, sua loja atende clientes na Europa, EUA e UK — na língua deles, na moeda deles. Nenhuma palavra escrita por você.
+    </p>
+    
+    <div class="gm-stats-row fscale d3" style="display:flex;gap:28px;justify-content:center;margin-top:28px;flex-wrap:wrap;">
+      <div class="gm-stat-item"><div class="gm-stat-num" style="font-size:24px;font-weight:900;color:#fff;line-height:1;">195</div><div class="gm-stat-lbl" style="font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Países</div></div>
+      <div class="gm-stat-item"><div class="gm-stat-num" style="font-size:24px;font-weight:900;line-height:1;color:#0ea5e9">€ £ $</div><div class="gm-stat-lbl" style="font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Você recebe</div></div>
+      <div class="gm-stat-item"><div class="gm-stat-num" style="font-size:24px;font-weight:900;color:#fff;line-height:1;">IA</div><div class="gm-stat-lbl" style="font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Escreve tudo</div></div>
+      <div class="gm-stat-item"><div class="gm-stat-num" style="font-size:24px;font-weight:900;color:#fff;line-height:1;">0</div><div class="gm-stat-lbl" style="font-size:10px;color:rgba(255,255,255,0.35);text-transform:uppercase;letter-spacing:.06em;margin-top:2px;">Idiomas p/ saber</div></div>
+    </div>
+  </div>
+
+  <div class="gm-map-container fscale d4">
+    <img id="world-map-bg" style="width:100%; height:100%; object-fit:cover; pointer-events:none; mask-image:linear-gradient(to bottom, transparent, white 10%, white 90%, transparent); -webkit-mask-image:linear-gradient(to bottom, transparent, white 10%, white 90%, transparent);" />
+    <svg id="world-map-svg" viewBox="0 0 800 400" style="position:absolute; inset:0; width:100%; height:100%; pointer-events:auto;" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="path-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0" />
+          <stop offset="20%" stopColor="#0ea5e9" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.8" />
+        </linearGradient>
+      </defs>
+      <g id="map-paths"></g>
+      <g id="map-points"></g>
+    </svg>
+  </div>
+  
+  <div class="cta-glow-wrap fscale d4" style="margin-top:40px;max-width:400px;width:100%">
+    <a href="#price" class="cta-btn">QUERO VENDER PARA O MUNDO TODO<small>A IA configura tudo — Euros, Dólares e Libras</small></a>
+  </div>
+</div>
+
+<script type="module">
+import DottedMap from 'https://esm.sh/dotted-map@2.2.3';
+
+try {
+  const map = new DottedMap({ height: 100, grid: "diagonal" });
+  const svgMap = map.getSVG({
+    radius: 0.22,
+    color: "rgba(255, 255, 255, 0.15)",
+    shape: "circle",
+    backgroundColor: "transparent",
+  });
+  document.getElementById('world-map-bg').src = `data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`;
+} catch(e) { console.error("Map load failed", e); }
+
+const projectPoint = (lat, lng) => {
+  const x = (lng + 180) * (800 / 360);
+  const y = (90 - lat) * (400 / 180);
+  return { x, y };
+};
+
+const createCurvedPath = (start, end) => {
+  const midX = (start.x + end.x) / 2;
+  const midY = Math.min(start.y, end.y) - 50;
+  return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
+};
+
+const dots = [
+  { start: { lat: -15.7975, lng: -47.8919, label: "Brasil" }, end: { lat: 34.0522, lng: -118.2437, label: "Los Angeles" } },
+  { start: { lat: -15.7975, lng: -47.8919, label: "Brasil" }, end: { lat: 40.7128, lng: -74.0060, label: "New York" } },
+  { start: { lat: -15.7975, lng: -47.8919, label: "Brasil" }, end: { lat: 51.5074, lng: -0.1278, label: "London" } },
+  { start: { lat: -15.7975, lng: -47.8919, label: "Brasil" }, end: { lat: 38.7223, lng: -9.1393, label: "Lisboa" } },
+  { start: { lat: -15.7975, lng: -47.8919, label: "Brasil" }, end: { lat: 52.5200, lng: 13.4050, label: "Berlin" } },
+  { start: { lat: -15.7975, lng: -47.8919, label: "Brasil" }, end: { lat: 25.2048, lng: 55.2708, label: "Dubai" } },
+];
+
+const pathsGroup = document.getElementById('map-paths');
+const pointsGroup = document.getElementById('map-points');
+
+dots.forEach((dot, i) => {
+  const startPoint = projectPoint(dot.start.lat, dot.start.lng);
+  const endPoint = projectPoint(dot.end.lat, dot.end.lng);
+  const pathD = createCurvedPath(startPoint, endPoint);
+  
+  // Create Path
+  const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", pathD);
+  path.setAttribute("fill", "none");
+  path.setAttribute("stroke", "url(#path-gradient)");
+  path.setAttribute("stroke-width", "1.5");
+  path.setAttribute("stroke-linecap", "round");
+  path.setAttribute("pathLength", "1");
+  path.style.strokeDasharray = "1";
+  path.style.strokeDashoffset = "1";
+  path.style.animation = `mapDrawPath 6s infinite ${i * 0.4}s ease-in-out`;
+  pathsGroup.appendChild(path);
+
+  // Glow for moving circle
+  const movingGlow = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  movingGlow.setAttribute("r", "5");
+  movingGlow.setAttribute("fill", "rgba(255, 255, 255, 0.5)");
+  movingGlow.style.offsetPath = `path('${pathD}')`;
+  movingGlow.style.animation = `mapMoveDot 6s infinite ${i * 0.4}s ease-in-out`;
+  movingGlow.style.opacity = "0";
+  pathsGroup.appendChild(movingGlow);
+
+  // Bright white moving leading dot
+  const movingCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  movingCircle.setAttribute("r", "2.5");
+  movingCircle.setAttribute("fill", "#ffffff");
+  movingCircle.style.offsetPath = `path('${pathD}')`;
+  movingCircle.style.animation = `mapMoveDot 6s infinite ${i * 0.4}s ease-in-out`;
+  movingCircle.style.opacity = "0";
+  pathsGroup.appendChild(movingCircle);
+
+  // End Point Group
+  const endG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  
+  const endBaseGlow = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  endBaseGlow.setAttribute("cx", endPoint.x);
+  endBaseGlow.setAttribute("cy", endPoint.y);
+  endBaseGlow.setAttribute("r", "6");
+  endBaseGlow.setAttribute("fill", "rgba(14, 165, 233, 0.2)");
+  endG.appendChild(endBaseGlow);
+
+  const endBase = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  endBase.setAttribute("cx", endPoint.x);
+  endBase.setAttribute("cy", endPoint.y);
+  endBase.setAttribute("r", "2.5");
+  endBase.setAttribute("fill", "#0ea5e9");
+  endG.appendChild(endBase);
+
+  const endPulse = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  endPulse.setAttribute("cx", endPoint.x);
+  endPulse.setAttribute("cy", endPoint.y);
+  endPulse.setAttribute("r", "2");
+  endPulse.setAttribute("fill", "#0ea5e9");
+  endPulse.setAttribute("opacity", "0.5");
+  endPulse.innerHTML = `<animate attributeName="r" from="2" to="12" dur="2s" begin="${i * 0.4 + 1}s" repeatCount="indefinite" /><animate attributeName="opacity" from="0.6" to="0" dur="2s" begin="${i * 0.4 + 1}s" repeatCount="indefinite" />`;
+  endG.appendChild(endPulse);
+
+  // Label
+  const labelObj = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+  labelObj.setAttribute("x", endPoint.x - 50);
+  labelObj.setAttribute("y", endPoint.y - 30);
+  labelObj.setAttribute("width", "100");
+  labelObj.setAttribute("height", "24");
+  labelObj.style.overflow = "visible";
+  labelObj.innerHTML = `<div style="display:flex;justify-content:center;align-items:center;height:100%;"><span style="font-size:10px;font-weight:700;color:#fff;background:rgba(0,0,0,0.85);border:1px solid rgba(255,255,255,0.2);padding:3px 10px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,0.6);">${dot.end.label}</span></div>`;
+  labelObj.style.opacity = "0";
+  labelObj.style.animation = `mapPopLabel 6s infinite ${i * 0.4}s ease-in-out`;
+  endG.appendChild(labelObj);
+
+  pointsGroup.appendChild(endG);
+});
+
+// Brasil Start Point
+const brPoint = projectPoint(dots[0].start.lat, dots[0].start.lng);
+const brG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+const brBaseGlow = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+brBaseGlow.setAttribute("cx", brPoint.x);
+brBaseGlow.setAttribute("cy", brPoint.y);
+brBaseGlow.setAttribute("r", "8");
+brBaseGlow.setAttribute("fill", "rgba(14, 165, 233, 0.2)");
+brG.appendChild(brBaseGlow);
+
+const brBase = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+brBase.setAttribute("cx", brPoint.x);
+brBase.setAttribute("cy", brPoint.y);
+brBase.setAttribute("r", "3.5");
+brBase.setAttribute("fill", "#0ea5e9");
+brG.appendChild(brBase);
+
+const brLabel = document.createElementNS("http://www.w3.org/2000/svg", "foreignObject");
+brLabel.setAttribute("x", brPoint.x - 50);
+brLabel.setAttribute("y", brPoint.y + 12);
+brLabel.setAttribute("width", "100");
+brLabel.setAttribute("height", "24");
+brLabel.style.overflow = "visible";
+brLabel.innerHTML = `<div style="display:flex;justify-content:center;align-items:center;height:100%;"><span style="font-size:12px;font-weight:800;color:#0ea5e9;background:rgba(0,0,0,0.85);border:1px solid rgba(14,165,233,0.4);padding:3px 12px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,0.6);">Brasil</span></div>`;
+brG.appendChild(brLabel);
+pointsGroup.appendChild(brG);
+</script>
+</section>
+
+
+<!-- CAROUSEL DE MÓDULOS -->
+<section id="carousel-modulos" style="overflow:hidden; padding: 40px 0; background: var(--bg);">
+  <style>
+    /* Carousel wrapper — clips content */
+    .carousel-row { overflow: hidden; position: relative; cursor: grab; user-select: none; -webkit-user-select: none; margin-bottom: 16px; }
+    .carousel-row:active { cursor: grabbing; }
+    .carousel-track { display: flex; width: max-content; gap: 16px; }
+    .carousel-track.left { animation: scrollLeft 40s linear infinite; }
+    .carousel-track.right { animation: scrollRight 40s linear infinite; }
+    .carousel-track.dragging { animation-play-state: paused !important; transition: none; }
+    .carousel-item { width: 220px; height: 300px; border-radius: 12px; overflow: hidden; flex-shrink: 0; border: 1px solid var(--brd); background: var(--bg2); pointer-events: none; }
+    .carousel-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+    @media(max-width:768px){
+      .carousel-item { width: 160px; height: 220px; }
+    }
+
+    /* ── GLOWING CTA BUTTON ───────────────────────── */
+    .cta-glow-wrap {
+      position: relative;
+      display: block;
+      border-radius: var(--rad);
+      margin: 0; padding: 0;
+    }
+    /* outer glow layer 1 */
+    .cta-glow-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: calc(var(--rad) + 3px);
+      z-index: 0;
+      overflow: hidden;
+      background: conic-gradient(from var(--glow-angle, 60deg), #000, #402fb5 5%, #000 38%, #000 50%, #cf30aa 60%, #000 87%);
+      filter: blur(4px);
+      animation: glowSpin 4s linear infinite;
+    }
+    /* outer glow layer 2 (softer inner ring) */
+    .cta-glow-wrap::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: calc(var(--rad) + 2px);
+      z-index: 0;
+      background: conic-gradient(from var(--glow-angle2, 82deg), rgba(0,0,0,0), #18116a, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 50%, #6e1b60, rgba(0,0,0,0) 60%);
+      filter: blur(3px);
+      animation: glowSpin2 4s linear infinite;
+    }
+    .cta-glow-wrap .cta-btn {
+      position: relative;
+      z-index: 1;
+      border-radius: var(--rad);
+    }
+    @property --glow-angle {
+      syntax: '<angle>'; inherits: false; initial-value: 60deg;
+    }
+    @property --glow-angle2 {
+      syntax: '<angle>'; inherits: false; initial-value: 82deg;
+    }
+    @keyframes glowSpin {
+      0%   { --glow-angle: 60deg; }
+      100% { --glow-angle: 420deg; }
+    }
+    @keyframes glowSpin2 {
+      0%   { --glow-angle2: 82deg; }
+      100% { --glow-angle2: 442deg; }
+    }
+  </style>
+  <div class="carousel-row" id="carouselRow1">
+    <div class="carousel-track left" id="carouselTrack1">
+      <div class="carousel-item"><img src="fc69631d-1193-4d90-bdc5-9cb44dc8bd70.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="bd052fa8-0a1a-4a1e-a8f4-8a4b628f99e0.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a2957987-a5df-4d2e-a67f-b0e4ff23e2a6.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="b9aa767e-e96d-49db-a57d-9850e4e9d70b.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a4db805a-0195-4a65-92fa-0159ba7fcb96.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="27afb5e5-4e18-41e4-ad39-8d912ec1e4fd.png" alt="Módulo"></div>
+      <!-- Duplicado para efeito infinito -->
+      <div class="carousel-item"><img src="fc69631d-1193-4d90-bdc5-9cb44dc8bd70.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="bd052fa8-0a1a-4a1e-a8f4-8a4b628f99e0.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a2957987-a5df-4d2e-a67f-b0e4ff23e2a6.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="b9aa767e-e96d-49db-a57d-9850e4e9d70b.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a4db805a-0195-4a65-92fa-0159ba7fcb96.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="27afb5e5-4e18-41e4-ad39-8d912ec1e4fd.png" alt="Módulo"></div>
+    </div>
+  </div>
+  <div class="carousel-row" id="carouselRow2">
+    <div class="carousel-track right" id="carouselTrack2">
+      <div class="carousel-item"><img src="be61c1e2-7ece-4420-b559-6d6418ab7d14.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="420d3c42-66a0-438c-ae5b-23387508248d.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="9a961203-a619-426c-9eae-e0e39aceda42.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="d17a3deb-4a7b-4cb9-bd3b-9162319628f9.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="4cb82b15-29e3-4fde-9381-8cd9fdefbeb9.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="6e4b2e47-538c-4b56-b937-22128e673e0b.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="0dac25d9-20ed-409a-a9b3-1d7cb4c873b7.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a7186710-750a-4be5-8d70-e461170b8ed4.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="8336783c-3260-4d05-b795-11a33e18f9d0.png" alt="Módulo"></div>
+      <!-- Duplicado para efeito infinito -->
+      <div class="carousel-item"><img src="be61c1e2-7ece-4420-b559-6d6418ab7d14.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="420d3c42-66a0-438c-ae5b-23387508248d.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="9a961203-a619-426c-9eae-e0e39aceda42.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="d17a3deb-4a7b-4cb9-bd3b-9162319628f9.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="4cb82b15-29e3-4fde-9381-8cd9fdefbeb9.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="6e4b2e47-538c-4b56-b937-22128e673e0b.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="0dac25d9-20ed-409a-a9b3-1d7cb4c873b7.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a7186710-750a-4be5-8d70-e461170b8ed4.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="8336783c-3260-4d05-b795-11a33e18f9d0.png" alt="Módulo"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE 3D -->
+<section id="showcase">
+  <div id="sscroll-area">
+    <div id="sscroll-pin">
+      <div class="show-head">
+        <span class="eyebrow ft">ESTILO DE VIDA GLOBAL</span>
+        <h2 class="sh fscale d1">A liberdade para <em>viajar o mundo inteiro</em></h2>
+        <p class="fb d2" style="font-size:13px;color:var(--txt2)">Enquanto a inteligência artificial vende em várias moedas, você escolhe o seu próximo destino.</p>
+      </div>
+      <div id="scrollCard">
+        <img src="Captura%20de%20tela%202026-05-26%20014938.png" alt="Estilo de Vida Global">
+      </div>
+    </div>
+  </div>
+  <div class="show-caption">
+    <h3 class="fl d1">A verdadeira liberdade geográfica.</h3>
+    <p class="fr d2">Ganhar em Dólar e Euro te dá o poder de viver experiências exclusivas em qualquer lugar do mundo. O sistema roda 100% no automático, a vida é toda sua.</p>
+  </div>
+</section>
+
+<div class="div-line"></div>
+
+<!-- PROOF / 3D GALLERY -->
+<section id="proof" style="height: 300vh; position: relative; background: var(--bg);">
+  <div style="position: sticky; top: 0; width: 100%; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; perspective: 2000px;">
+    
+    <!-- Header -->
+    <div style="position: absolute; top: 12vh; z-index: 10; text-align: center; width: 100%; padding: 0 20px;">
+      <span class="eyebrow ft">Resultados reais</span>
+      <h2 class="sh fscale d1">Membros que j&aacute; est&atilde;o <em>lucrando em moeda forte</em></h2>
+      <p class="fb d2" style="color:var(--txt2); margin-top:8px; font-size: 14px;">Role a página para girar a galeria</p>
+    </div>
+
+    <!-- 3D Container -->
+    <div id="gallery-container" style="position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.1s linear;">
+      <!-- Cards Injected via JS -->
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="cta-glow-wrap fscale d3" style="position: absolute; bottom: 8vh; z-index: 10; width: 100%; max-width: 400px; padding: 0 20px;">
+      <a href="#price" class="cta-btn">QUERO ESSES RESULTADOS<small>12x de R$24,75 &mdash; acesso imediato</small></a>
+    </div>
+    
+    <!-- Dark Vignette Overlay to blend edges -->
+    <div style="position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle at center, transparent 30%, var(--bg) 90%); z-index: 5;"></div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const images = [
+    "Captura de tela 2026-05-26 015501.png",
+    "Captura de tela 2026-05-26 015948.png",
+    "Captura de tela 2026-05-26 020000.png",
+    "Captura de tela 2026-05-26 020012.png",
+    "Captura de tela 2026-05-26 020030.png",
+    "Captura de tela 2026-05-26 020044.png"
+  ];
+
+  const container = document.getElementById('gallery-container');
+  // Dynamic radius based on screen size
+  const isMobile = window.innerWidth < 768;
+  const radius = isMobile ? 280 : 500;
+  const cardWidth = isMobile ? 240 : 300;
+  const cardHeight = isMobile ? 420 : 500;
+  const anglePerItem = 360 / images.length;
+
+  // Build items
+  images.forEach((src, i) => {
+    const itemAngle = i * anglePerItem;
+    const div = document.createElement('div');
+    div.className = 'gallery-item';
+    div.style.cssText = `
+      position: absolute;
+      width: ${cardWidth}px;
+      height: ${cardHeight}px;
+      left: 50%;
+      top: 50%;
+      margin-left: -${cardWidth/2}px;
+      margin-top: -${cardHeight/2}px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      background: var(--bg2);
+      transform: rotateY(${itemAngle}deg) translateZ(${radius}px);
+      transition: opacity 0.3s linear;
+      will-change: transform, opacity;
+    `;
+    
+    const img = document.createElement('img');
+    img.src = src;
+    img.style.cssText = `
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+    `;
+    div.appendChild(img);
+    container.appendChild(div);
+  });
+
+  let rotation = 0;
+  let isScrolling = false;
+  let scrollTimeout = null;
+  const autoRotateSpeed = 0.08;
+
+  function updateItemsOpacity() {
+    const items = container.querySelectorAll('.gallery-item');
+    items.forEach((item, i) => {
+      const itemAngle = i * anglePerItem;
+      const totalRotation = rotation % 360;
+      // Calculate relative angle to center (0 means facing user)
+      let relativeAngle = (itemAngle + totalRotation + 360) % 360;
+      let normalizedAngle = Math.abs(relativeAngle > 180 ? 360 - relativeAngle : relativeAngle);
+      
+      // Fade out items that are facing away from the camera
+      let opacity = Math.max(0.05, 1 - (normalizedAngle / 120));
+      item.style.opacity = opacity;
+    });
+  }
+
+  // Auto-rotation loop
+  function loop() {
+    if (!isScrolling) {
+      rotation -= autoRotateSpeed; // Rotate left smoothly
+      container.style.transform = `rotateY(${rotation}deg)`;
+      updateItemsOpacity();
+    }
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  // Scroll handler
+  window.addEventListener('scroll', () => {
+    const section = document.getElementById('proof');
+    const rect = section.getBoundingClientRect();
+    
+    // Check if section is active in viewport
+    if (rect.top <= 0 && rect.bottom >= window.innerHeight) {
+      isScrolling = true;
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+
+      const scrolledInSection = Math.abs(rect.top);
+      const scrollableDist = rect.height - window.innerHeight;
+      const progress = Math.min(1, Math.max(0, scrolledInSection / scrollableDist));
+      
+      // Map scroll progress to rotation (1.5 full spins)
+      rotation = -(progress * 540); 
+      container.style.transform = `rotateY(${rotation}deg)`;
+      updateItemsOpacity();
+
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 150);
+    }
+  }, { passive: true });
+
+  // Initial opacity setup
+  updateItemsOpacity();
+
+})();
+</script>
+
+<div class="div-line"></div>
+
+<!-- BONUS VIDEO SECTION -->
+<section id="bonus-video" style="padding: 60px 0; background: var(--bg2);">
+  <div class="wrap">
+    <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+      <span class="eyebrow fscale d1" style="display: inline-flex; align-items: center; gap: 8px; color: #0ea5e9; font-size: 11px; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+        BÔNUS EXCLUSIVO
+      </span>
+      <h2 class="sh fscale d2" style="margin-top: 16px; margin-bottom: 24px;">
+        Por você ter chegado até aqui, pegue este <em style="color: #0ea5e9;">vídeo de graça.</em>
+      </h2>
+      <p class="fb d3" style="font-size: 16px; color: var(--txt2); line-height: 1.6; margin-bottom: 40px;">
+        <strong>Tem guru que cobra o valor do sistema inteiro só para ensinar o que está neste vídeo.</strong> 
+        Vou te entregar 100% de graça agora. Assista antes que eu mude de ideia e tire do ar.
+      </p>
+
+      <!-- Video Wrapper (Vturb Style Simulation with Anti-Redirect) -->
+      <div class="fscale d4" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.4); background: #000;" id="video-container">
+        
+        <iframe 
+          id="yt-iframe"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;" 
+          src="https://www.youtube.com/embed/8sqarGt-_SE?start=1&modestbranding=1&rel=0&showinfo=0&controls=0&enablejsapi=1&playsinline=1"
+          title="Vídeo Bônus" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+
+        <!-- Click Blocker / Controller to prevent YouTube redirection -->
+        <div id="video-blocker" style="position: absolute; inset: 0; z-index: 5; cursor: pointer;" onclick="togglePlayPause()"></div>
+
+        <!-- Custom Pause Overlay (Shows when video is paused) -->
+        <div id="custom-pause-overlay" style="position: absolute; inset: 0; z-index: 6; pointer-events: none; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);">
+           <div style="width: 80px; height: 80px; background: rgba(14,165,233,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(14,165,233,0.5);">
+             <svg width="36" height="36" viewBox="0 0 24 24" fill="white" stroke="none" style="margin-left:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+           </div>
         </div>
-        <div class="fws">
-          <div class="fws-val">5</div>
-          <div class="fws-lbl">Pa&iacute;ses com nichos validados no banco de dados</div>
-        </div>
-        <div class="fws">
-          <div class="currencies">
-            <span class="cur">EUR</span>
-            <span class="cur">USD</span>
-            <span class="cur">GBP</span>
+
+        <!-- Custom Vturb-like Overlay (Initial state) -->
+        <div id="video-overlay" style="position: absolute; inset: 0; z-index: 10; cursor: pointer; background: url('https://img.youtube.com/vi/8sqarGt-_SE/maxresdefault.jpg') center/cover no-repeat;" onclick="playVideoInit()">
+          <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.2)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'">
+            <!-- Pulsing Play Button CTA -->
+            <div style="position: relative; width: 80px; height: 80px;">
+              <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; opacity: 0.6; animation: vturbPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>
+              <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(14,165,233,0.6); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="white" stroke="none" style="margin-left:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+              </div>
+            </div>
+          </div>
+          <!-- Click to Watch Top Bar -->
+          <div style="position: absolute; top: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); text-align: left;">
+            <span style="color: white; font-weight: 700; font-family: Inter, sans-serif; font-size: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 8px;">
+              <span style="display:inline-block; width:8px; height:8px; background:#ff0000; border-radius:50%; box-shadow: 0 0 8px #ff0000;"></span>
+              Assista agora: O Sistema Revelado
+            </span>
           </div>
         </div>
       </div>
+      
+      <style>
+        @keyframes vturbPing {
+          75%, 100% { transform: scale(1.8); opacity: 0; }
+        }
+      </style>
+      <script>
+        // Load YouTube IFrame API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var ytPlayer;
+        var isPlayerReady = false;
+
+        function onYouTubeIframeAPIReady() {
+          ytPlayer = new YT.Player('yt-iframe', {
+            events: {
+              'onReady': function() { isPlayerReady = true; },
+              'onStateChange': onPlayerStateChange
+            }
+          });
+        }
+
+        function onPlayerStateChange(event) {
+          const pauseOverlay = document.getElementById('custom-pause-overlay');
+          // event.data: 1 = playing, 2 = paused, 0 = ended
+          if (event.data === 2 || event.data === 0) {
+             if(pauseOverlay) pauseOverlay.style.display = 'flex';
+          } else {
+             if(pauseOverlay) pauseOverlay.style.display = 'none';
+          }
+        }
+
+        function playVideoInit() {
+          const overlay = document.getElementById('video-overlay');
+          if(overlay) overlay.style.display = 'none';
+          
+          if(isPlayerReady && ytPlayer && ytPlayer.playVideo) {
+            ytPlayer.playVideo();
+          } else {
+             // Fallback if API is not fully loaded yet
+             var iframe = document.getElementById('yt-iframe');
+             iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+          }
+        }
+
+        function togglePlayPause() {
+          if(isPlayerReady && ytPlayer && ytPlayer.getPlayerState) {
+            let state = ytPlayer.getPlayerState();
+            if(state === 1) { // playing
+              ytPlayer.pauseVideo();
+            } else {
+              ytPlayer.playVideo();
+            }
+          } else {
+            // Fallback to play if state is unknown
+            var iframe = document.getElementById('yt-iframe');
+            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+          }
+        }
+      </script>
+      
+      <p class="fb d4" style="font-size: 13px; color: rgba(255,255,255,0.3); margin-top: 16px;">
+        <svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        Assista com atenção. O que é revelado aqui é o que separa quem lucra de verdade de quem apenas tenta.
+      </p>
     </div>
   </div>
-</div>
 </section>
 
-<hr class="sec-div">
+<div class="div-line"></div>
 
-<!-- INCLUSO + CURRICULUM -->
-<section id="includes" class="dot-bg">
-<div class="container">
-  <p class="sec-label fi">// O que est&aacute; incluso</p>
-  <h2 class="fi d1">Sistema completo + curso passo a passo<br>para sua loja global funcionar.</h2>
 
-  <div class="curriculum fi d2">
+<!-- PRICE / OFFER -->
+<section id="price">
+  <div class="wrap">
+    <span class="eyebrow ft" style="text-align:center;display:block">Oferta exclusiva de lan&ccedil;amento 2026</span>
+    <h2 class="sh fscale d1" style="text-align:center">A oferta mais agressiva <em>que j&aacute; fizemos</em></h2>
 
-    <div class="cur-section open">
-      <div class="cur-section-header" onclick="toggleSection(this)">
-        <h3>M&oacute;dulo 01 &mdash; Sistema de IA para Cria&ccedil;&atilde;o de Lojas</h3>
-        <div class="cur-meta">
-          <span>6 aulas</span>
-          <svg class="arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="cur-lessons">
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Como o sistema de IA funciona</div><div class="lesson-dur">12 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Configurando sua conta no sistema</div><div class="lesson-dur">8 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Gerando sua primeira loja com IA</div><div class="lesson-dur">18 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Revisando e ajustando a loja gerada</div><div class="lesson-dur">14 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Personalizando idioma e moeda local</div><div class="lesson-dur">10 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Publicando e testando sua loja</div><div class="lesson-dur">9 min</div></div>
+    <div class="timer-box fb d2">
+      <div class="timer-lbl">Esta oferta fecha em</div>
+      <div class="timer-digs">
+        <div class="td-b"><span class="td-n" id="th">00</span><span class="td-l">horas</span></div>
+        <span class="td-sep">:</span>
+        <div class="td-b"><span class="td-n" id="tm">00</span><span class="td-l">min</span></div>
+        <span class="td-sep">:</span>
+        <div class="td-b"><span class="td-n" id="ts">00</span><span class="td-l">seg</span></div>
       </div>
     </div>
 
-    <div class="cur-section">
-      <div class="cur-section-header" onclick="toggleSection(this)">
-        <h3>M&oacute;dulo 02 &mdash; Banco de Nichos por Pa&iacute;s</h3>
-        <div class="cur-meta">
-          <span>5 aulas</span>
-          <svg class="arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
+    <div class="offer-box fb d2">
+      <div class="offer-eyebrow">Investimento &uacute;nico</div>
+      <div class="offer-headline">Tudo que voc&ecirc; precisa para <em>lucrar em moeda forte &mdash;</em> por menos de R$25 por m&ecirc;s</div>
+      <div class="offer-includes">
+        <div class="oi"><span class="oi-dot"></span>Sistema de IA para criar lojas globais</div>
+        <div class="oi"><span class="oi-dot"></span>Curso completo &mdash; 33+ aulas em v&iacute;deo</div>
+        <div class="oi"><span class="oi-dot"></span>Banco de nichos EUA, UK, Alemanha, Fran&ccedil;a</div>
+        <div class="oi"><span class="oi-dot"></span>Scripts de copy multil&iacute;ngue com IA</div>
+        <div class="oi"><span class="oi-dot"></span>Templates de an&uacute;ncios por pa&iacute;s e nicho</div>
+        <div class="oi"><span class="oi-dot"></span>Comunidade exclusiva + suporte incluso</div>
       </div>
-      <div class="cur-lessons">
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Nichos validados para o mercado americano</div><div class="lesson-dur">15 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Nichos validados para o mercado brit&acirc;nico</div><div class="lesson-dur">13 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Nichos validados para a Alemanha e Fran&ccedil;a</div><div class="lesson-dur">14 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Como interpretar demanda local com IA</div><div class="lesson-dur">11 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Atualiza&ccedil;&atilde;o do banco de nichos (trimestral)</div><div class="lesson-dur">Recurso</div></div>
+      <div class="offer-price-row">
+        <div class="op-old">De R$ 997,00</div>
+        <div class="op-installment">12x de</div>
+        <div class="op-main"><small>R$</small> 24,75</div>
+        <div class="op-or">ou</div>
+        <div class="op-full">R$ 297,00 &agrave; vista</div>
+        <div class="op-note">Pagamento &uacute;nico &mdash; acesso vitalício a tudo</div>
       </div>
-    </div>
-
-    <div class="cur-section">
-      <div class="cur-section-header" onclick="toggleSection(this)">
-        <h3>M&oacute;dulo 03 &mdash; Estrutura de Loja por Mercado</h3>
-        <div class="cur-meta">
-          <span>7 aulas</span>
-          <svg class="arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
+      <div class="cta-glow-wrap"><a href="#" class="cta-btn">GARANTIR MINHA VAGA POR R$297,00<small>ou 12x de R$24,75 &mdash; acesso imediato &mdash; pagamento 100% seguro</small></a></div>
+      
+      <div id="lote-urgency" class="fb d3" style="text-align: center; margin-top: 18px; font-size: 12px; color: rgba(238, 0, 0, 0.55); font-weight: 600; letter-spacing: 0.02em;">
+        Atenção: O 2º Lote (R$ 497,00) entra em vigor no dia <span id="lote-date"></span>.
       </div>
-      <div class="cur-lessons">
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Anatomia de uma loja que converte na Europa</div><div class="lesson-dur">20 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Diferen&ccedil;as de comportamento entre EUA e UK</div><div class="lesson-dur">16 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Configura&ccedil;&atilde;o de pagamento por pa&iacute;s</div><div class="lesson-dur">14 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Layout e navega&ccedil;&atilde;o para m&oacute;vel vs desktop</div><div class="lesson-dur">12 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Pol&iacute;ticas e conformidade legal por regi&atilde;o</div><div class="lesson-dur">18 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Otimiza&ccedil;&atilde;o de fluxo de checkout</div><div class="lesson-dur">11 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Revis&atilde;o final antes de publicar</div><div class="lesson-dur">8 min</div></div>
-      </div>
-    </div>
-
-    <div class="cur-section">
-      <div class="cur-section-header" onclick="toggleSection(this)">
-        <h3>M&oacute;dulo 04 &mdash; Scripts de Copy Multil&iacute;ngue com IA</h3>
-        <div class="cur-meta">
-          <span>5 aulas</span>
-          <svg class="arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="cur-lessons">
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Como a IA gera copy de alta convers&atilde;o</div><div class="lesson-dur">17 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Adaptando copy para ingl&ecirc;s americano e brit&acirc;nico</div><div class="lesson-dur">14 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Gerando descri&ccedil;&otilde;es de produto em alem&atilde;o e franc&ecirc;s</div><div class="lesson-dur">13 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Headlines e CTAs que convertem por cultura</div><div class="lesson-dur">15 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Revisando e ajustando o tom da marca</div><div class="lesson-dur">10 min</div></div>
-      </div>
-    </div>
-
-    <div class="cur-section">
-      <div class="cur-section-header" onclick="toggleSection(this)">
-        <h3>M&oacute;dulo 05 &mdash; Processo de Valida&ccedil;&atilde;o antes do Tr&aacute;fego</h3>
-        <div class="cur-meta">
-          <span>4 aulas</span>
-          <svg class="arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="cur-lessons">
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Framework de valida&ccedil;&atilde;o em 3 etapas</div><div class="lesson-dur">19 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Lendo sinais de demanda antes de investir</div><div class="lesson-dur">16 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Teste de produto com or&ccedil;amento m&iacute;nimo</div><div class="lesson-dur">14 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Quando escalar e quando mudar de produto</div><div class="lesson-dur">12 min</div></div>
-      </div>
-    </div>
-
-    <div class="cur-section">
-      <div class="cur-section-header" onclick="toggleSection(this)">
-        <h3>M&oacute;dulo 06 &mdash; Estrat&eacute;gia de Escala Replic&aacute;vel</h3>
-        <div class="cur-meta">
-          <span>6 aulas</span>
-          <svg class="arr" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-      </div>
-      <div class="cur-lessons">
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Clonando uma loja para outro pa&iacute;s</div><div class="lesson-dur">20 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Gerenciando m&uacute;ltiplas lojas com um painel</div><div class="lesson-dur">15 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Automando pedidos e logística internacional</div><div class="lesson-dur">18 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Otimizando margem por pa&iacute;s</div><div class="lesson-dur">13 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Construindo renda em 3 moedas diferentes</div><div class="lesson-dur">16 min</div></div>
-        <div class="cur-lesson"><div class="lesson-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="lesson-title">Roteiro de 90 dias para a primeira loja rentável</div><div class="lesson-dur">22 min</div></div>
-      </div>
-    </div>
-
-  </div><!-- /curriculum -->
-
-  <!-- BONUSES -->
-  <div style="margin-top:80px">
-    <p class="sec-label fi">// B&ocirc;nus inclusos</p>
-    <h2 class="fi d1">Al&eacute;m do sistema e do curso,<br>voc&ecirc; recebe estes b&ocirc;nus.</h2>
-    <div class="bonus-grid fi d2">
-      <div class="bonus-card">
-        <div class="bonus-tag">B&ocirc;nus 01</div>
-        <div class="pc-icon" style="margin-bottom:20px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>Comunidade Exclusiva</h3>
-        <p style="margin-top:8px;font-size:14px">Acesso &agrave; comunidade privada de dropshippers globais. Troque estrat&eacute;gias, tire d&uacute;vidas e acompanhe resultados reais.</p>
-        <div class="bonus-val">Valor: R$ 297</div>
-        <div class="bonus-val-free">Incluso no plano</div>
-      </div>
-      <div class="bonus-card">
-        <div class="bonus-tag">B&ocirc;nus 02</div>
-        <div class="pc-icon" style="margin-bottom:20px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </div>
-        <h3>Suporte Especializado</h3>
-        <p style="margin-top:8px;font-size:14px">Suporte direto para d&uacute;vidas de configura&ccedil;&atilde;o, valida&ccedil;&atilde;o de produto e estrutura da sua loja. N&atilde;o voc&ecirc; travado.</p>
-        <div class="bonus-val">Valor: R$ 197</div>
-        <div class="bonus-val-free">Incluso no plano</div>
-      </div>
-      <div class="bonus-card">
-        <div class="bonus-tag">B&ocirc;nus 03</div>
-        <div class="pc-icon" style="margin-bottom:20px">
-          <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-        </div>
-        <h3>Templates de An&uacute;ncios Prontos</h3>
-        <p style="margin-top:8px;font-size:14px">Biblioteca de criativos e textos de an&uacute;ncios validados para Meta Ads e Google Ads, adaptados por pa&iacute;s e nicho.</p>
-        <div class="bonus-val">Valor: R$ 397</div>
-        <div class="bonus-val-free">Incluso no plano</div>
-      </div>
+      <script>
+        (function(){
+          const d = new Date();
+          d.setDate(d.getDate() + 2);
+          const dia = String(d.getDate()).padStart(2, '0');
+          const mes = String(d.getMonth() + 1).padStart(2, '0');
+          const ano = d.getFullYear();
+          const p = document.getElementById('lote-date');
+          if(p) p.textContent = dia + '/' + mes + '/' + ano;
+        })();
+      </script>
     </div>
   </div>
-
-  <!-- PRICE -->
-  <div class="price-block fi">
-    <p class="p-label">Investimento &uacute;nico</p>
-    <p class="p-old">De R$ 997,00</p>
-    <div class="p-cur"><small>R$</small> 497</div>
-    <p class="p-note">Pagamento &uacute;nico &mdash; acesso vitalício a tudo</p>
-    <div class="price-list">
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Sistema de IA para cria&ccedil;&atilde;o de lojas</div>
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Curso completo com 33+ aulas em v&iacute;deo</div>
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Banco de nichos para EUA, UK, DE, FR e ES</div>
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Scripts de copy multil&iacute;ngue gerados por IA</div>
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Comunidade exclusiva de dropshippers globais</div>
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Templates de an&uacute;ncios por pa&iacute;s e nicho</div>
-      <div class="price-list-item"><span class="chk"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg></span>Suporte especializado incluso</div>
-    </div>
-    <a href="#" class="btn">QUERO MEU ACESSO AGORA &rarr;</a>
-  </div>
-
-</div>
 </section>
 
-<hr class="sec-div">
+<div class="div-line"></div>
 
-<!-- DEPOIMENTOS -->
-<section id="testimonials">
-<div class="container">
-  <p class="sec-label fi">// Resultados de membros reais</p>
-  <h2 class="fi d1">Lojas ativas. Vendas em moeda forte.<br>Pessoas reais.</h2>
-  <div class="test-grid fi d2">
-    <div class="tc">
-      <div class="th">
-        <div class="av">RM</div>
-        <div class="tm"><div class="name">Rafael M.</div><div class="store">Loja na Alemanha &mdash; Casa &amp; Jardim</div></div>
+<!-- GUARANTEE -->
+<section id="guarantee">
+  <div class="wrap">
+    <div class="gu-center">
+      <div class="gu-icon fb"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <span class="eyebrow" style="display:block;margin-bottom:10px">Risco zero</span>
+      <h2 class="sh fl d1">Garantia de <em>7 dias total</em></h2>
+      <p class="sp fr d2">Se em 7 dias voc&ecirc; achar que o sistema n&atilde;o vale o investimento, devolvemos 100% do valor. Sem burocracia, sem perguntas, sem processo complicado.</p>
+      <div class="gu-badges">
+        <div class="gb fl d1"><span class="gb-dot"></span>100% do valor devolvido</div>
+        <div class="gb fr d2"><span class="gb-dot"></span>Sem burocracia e sem perguntas</div>
+        <div class="gb fl d3"><span class="gb-dot"></span>7 dias a partir da compra</div>
       </div>
-      <div class="rev"><span class="amt">&euro;4.200</span><span class="per">em 30 dias</span></div>
-      <p class="tt">"Nunca falei alem&atilde;o na vida. A IA montou a loja completa, os textos, tudo. Em 3 semanas j&aacute; tinha as primeiras vendas. Agora recebo em euro todo m&ecirc;s."</p>
-    </div>
-    <div class="tc">
-      <div class="th">
-        <div class="av">CS</div>
-        <div class="tm"><div class="name">Camila S.</div><div class="store">Loja no UK &mdash; Pet &amp; Lifestyle</div></div>
-      </div>
-      <div class="rev"><span class="amt">&pound;2.870</span><span class="per">em 45 dias</span></div>
-      <p class="tt">"J&aacute; tinha tentado dropshipping duas vezes e perdido dinheiro. O que faltava era um sistema validado. Hoje tenho uma loja no UK funcionando e j&aacute; planejo a segunda."</p>
-    </div>
-    <div class="tc">
-      <div class="th">
-        <div class="av">DT</div>
-        <div class="tm"><div class="name">Diego T.</div><div class="store">Loja nos EUA &mdash; Tech Accessories</div></div>
-      </div>
-      <div class="rev"><span class="amt">$5.600</span><span class="per">em 60 dias</span></div>
-      <p class="tt">"A valida&ccedil;&atilde;o do nicho antes de gastar em tr&aacute;fego mudou tudo. Sabia exatamente qual produto tinha demanda nos EUA antes de colocar qualquer centavo em an&uacute;ncio."</p>
     </div>
   </div>
-  <div class="markets-row fi">
-    <span class="mkt">Alemanha</span>
-    <span class="mkt">EUA</span>
-    <span class="mkt">Reino Unido</span>
-    <span class="mkt">Fran&ccedil;a</span>
-    <span class="mkt">Espanha</span>
-    <span class="mkt">Pa&iacute;ses Baixos</span>
-    <span class="mkt">It&aacute;lia</span>
-  </div>
-</div>
 </section>
 
-<hr class="sec-div">
+<div class="div-line"></div>
 
-<!-- GARANTIA -->
-<section id="guarantee" class="dot-bg">
-<div class="container">
-  <div class="gu-inner fi">
-    <div class="gu-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow ft">D&uacute;vidas</span>
+    <h2 class="sh fl d1">Perguntas <em>frequentes</em></h2>
+    <div class="faq-list fb d2">
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">Preciso ter experi&ecirc;ncia com dropshipping?<span class="faq-ico"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a">N&atilde;o. O sistema foi feito para quem est&aacute; come&ccedil;ando do zero. A IA resolve o t&eacute;cnico e o curso ensina cada etapa passo a passo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Preciso saber ingl&ecirc;s, alem&atilde;o ou franc&ecirc;s?<span class="faq-ico"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a">N&atilde;o. O sistema gera todos os textos da loja no idioma do pa&iacute;s alvo. Nenhuma l&iacute;ngua estrangeira &eacute; necessária.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Preciso de capital para come&ccedil;ar?<span class="faq-ico"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a">O modelo &eacute; dropshipping puro &mdash; voc&ecirc; vende primeiro, repassa ao fornecedor depois. N&atilde;o compra estoque. O principal custo &eacute; o acesso ao sistema.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Em quanto tempo vejo resultados?<span class="faq-ico"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a">Membros que seguem o m&eacute;todo t&ecirc;m primeiras vendas entre 2 e 4 semanas. O sistema elimina os principais pontos de falha.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">O acesso &eacute; vitalício?<span class="faq-ico"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a">Sim. Uma &uacute;nica vez e acesso permanente a sistema, curso, atualiza&ccedil;&otilde;es e comunidade. Sem mensalidade.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">E se eu n&atilde;o gostar?<span class="faq-ico"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span></button>
+        <div class="faq-a">7 dias de garantia total. Basta enviar um e-mail e devolvemos 100% sem nenhuma pergunta.</div>
+      </div>
     </div>
-    <p class="sec-label" style="text-align:center">// Sem risco para voc&ecirc;</p>
-    <h2 style="margin-bottom:24px">7 Dias de Garantia Total</h2>
-    <p class="gu-text">Se em 7 dias voc&ecirc; achar que o sistema n&atilde;o vale o que investiu, devolvemos 100% do seu dinheiro. Sem burocracia, sem perguntas, sem processo complicado. O risco &eacute; inteiramente do nosso lado.</p>
-    <div class="gbadges">
-      <span class="gb"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>100% do valor devolvido</span>
-      <span class="gb"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>Sem perguntas</span>
-      <span class="gb"><svg viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>7 dias de prazo</span>
-    </div>
+    <div class="cta-glow-wrap fscale"><a href="#price" class="cta-btn">QUERO MEU ACESSO AGORA<small>R$297,00 ou 12x R$24,75 &mdash; acesso vitalício</small></a></div>
   </div>
-</div>
 </section>
 
-<hr class="sec-div">
-
-<!-- CTA FINAL -->
-<section id="cta-final" class="grid-bg">
-<div class="container">
-  <div class="ctaf fi">
-    <p class="sec-label" style="text-align:center">// Sua vez</p>
-    <h2 class="d1" style="margin-bottom:20px;text-align:center">Sua primeira loja global pode<br>estar no ar ainda essa semana.</h2>
-    <p class="ctaf-sub d2">Sistema, curso completo e suporte &mdash; tudo por acesso &uacute;nico.</p>
-    <div class="d3">
-      <a href="#" class="btn" style="font-size:15px;padding:20px 44px;margin:0 auto;display:inline-flex">QUERO ENTRAR NO MAKE MONEY CLUB AGORA &rarr;</a>
-      <div class="urg"><span class="urg-dot"></span>Condi&ccedil;&otilde;es especiais por tempo limitado</div>
-    </div>
-  </div>
-</div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-<div class="container">
-  <div class="flogo">Make Money Club</div>
-  <div class="flinks">
+  <div class="fl-logo">Make Money Club</div>
+  <div class="fl-links">
     <a href="#">Pol&iacute;tica de Privacidade</a>
     <a href="#">Termos de Uso</a>
     <a href="#">Contato</a>
   </div>
-  <p class="fdis">Make Money Club &eacute; um sistema educacional de cria&ccedil;&atilde;o de lojas de dropshipping assistido por IA. Os resultados apresentados s&atilde;o de membros reais e n&atilde;o representam garantia de ganhos. Resultados individuais podem variar conforme dedica&ccedil;&atilde;o, mercado e execu&ccedil;&atilde;o.</p>
-</div>
+  <p class="fl-dis">Make Money Club &eacute; um sistema educacional de dropshipping assistido por IA. Os resultados s&atilde;o de membros reais e n&atilde;o representam garantia de ganhos. Resultados individuais variam conforme execu&ccedil;&atilde;o.</p>
 </footer>
 
 <script>
-// INTERSECTION OBSERVER
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); });
-}, {threshold:0.06, rootMargin:'0px 0px -20px 0px'});
-document.querySelectorAll('.fi').forEach(el => obs.observe(el));
-
-// Force-show elements already in viewport on load (prevents blank screen)
-function revealVisible(){
-  document.querySelectorAll('.fi').forEach(el => {
-    const r = el.getBoundingClientRect();
-    if(r.top < window.innerHeight + 40) el.classList.add('on');
+// ── REVEAL ENGINE (all directional classes) ──────────────────
+const ANIM_CLASSES = ['.fl','.fr','.ft','.fb','.fscale'];
+const allAnim = document.querySelectorAll(ANIM_CLASSES.join(','));
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('on'); });
+},{threshold:.07, rootMargin:'0px 0px -24px 0px'});
+allAnim.forEach(el=>revObs.observe(el));
+function revealNow(){
+  allAnim.forEach(el=>{
+    if(el.getBoundingClientRect().top < window.innerHeight + 40) el.classList.add('on');
   });
 }
-revealVisible();
-requestAnimationFrame(revealVisible);
-setTimeout(revealVisible, 120);
+revealNow();
+requestAnimationFrame(revealNow);
+setTimeout(revealNow,80);
+setTimeout(revealNow,250);
+window.addEventListener('load',revealNow);
 
-// TICKER
-const words = [
-  'Sem precisar falar ingl&ecirc;s',
-  'IA configura tudo',
-  'Lucre em moeda forte',
-  'Lojas validadas por pa&iacute;s',
-  'Replic&aacute;vel e escal&aacute;vel',
-  'Dropshipping sem dor de cabe&ccedil;a',
-  'Sistema pronto em minutos',
-  'EUR, USD e GBP',
-  'IA faz o trabalho t&eacute;cnico'
-];
-const tt = document.getElementById('ttrack');
-for(let s=0;s<4;s++) words.forEach(w => {
-  const d = document.createElement('div');
-  d.className = 'ti';
-  d.innerHTML = w + '<span class="sep"></span>';
-  tt.appendChild(d);
-});
-let tx=0, sw=0;
-function tick(){
-  tx -= 0.6;
-  if(Math.abs(tx) >= sw) tx = 0;
-  tt.style.transform = 'translateX('+tx+'px)';
-  requestAnimationFrame(tick);
-}
-window.addEventListener('load', () => { sw = tt.scrollWidth / 4; tick(); });
+// ── TICKER ──────────────────────────────────────────────────
+const words=['Sem falar inglês','IA configura tudo','Euro, Dólar e Libra','Lojas validadas','Sem estoque','297 reais apenas','5 países cobertos','Sistema lançado 2026','Acesso vitalício','Primeira venda em semanas'];
+const trk=document.getElementById('tkrTrack');
+if(trk){for(let s=0;s<4;s++)words.forEach(w=>{const d=document.createElement('div');d.className='ti';d.innerHTML=w+'<span class="ti-sep"></span>';trk.appendChild(d)});}
+let tx=0,sw=0;
+function tickMove(){tx-=.55;if(Math.abs(tx)>=sw)tx=0;trk.style.transform='translateX('+tx+'px)';requestAnimationFrame(tickMove);}
+window.addEventListener('load',()=>{sw=trk.scrollWidth/4;tickMove();});
 
-// SCROLL CARD 3D ANIMATION (ContainerScroll)
-const card = document.getElementById('scrollCard');
-const wrapper = document.getElementById('scroll-anim-wrapper');
-
-function lerp(a, b, t){ return a + (b - a) * t; }
-
+// ── SCROLL 3D CARD ──────────────────────────────────────────
+const sArea=document.getElementById('sscroll-area');
+const sCard=document.getElementById('scrollCard');
 function onScroll(){
-  if(!card || !wrapper) return;
-  const rect = wrapper.getBoundingClientRect();
-  const wh = window.innerHeight;
-  const total = rect.height + wh;
-  const elapsed = wh - rect.top;
-  const progress = Math.max(0, Math.min(1, elapsed / total));
-
-  const rotateX = lerp(18, 0, progress);
-  const scaleV = lerp(1.04, 1, progress);
-
-  card.style.transform = 'perspective(1200px) rotateX(' + rotateX + 'deg) scale(' + scaleV + ')';
+  if(!sArea||!sCard)return;
+  const rect=sArea.getBoundingClientRect();
+  const maxScroll=sArea.offsetHeight-window.innerHeight;
+  const raw=Math.max(0,Math.min(1,-rect.top/maxScroll));
+  const p=Math.min(1,raw/.75);
+  const e=1-Math.pow(1-p,3);
+  sCard.style.transform='perspective(1100px) translateY('+(110*(1-e))+'px) rotateX('+(36*(1-e))+'deg) scale('+(1+.13*(1-e))+')';
+  sCard.style.opacity=.2+.8*e;
 }
-
-window.addEventListener('scroll', onScroll, {passive:true});
+window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('resize',onScroll,{passive:true});
 onScroll();
 
-// CURRICULUM ACCORDION
-function toggleSection(header){
-  const section = header.closest('.cur-section');
-  section.classList.toggle('open');
-}
+// ── TIMER ────────────────────────────────────────────────────
+(function(){
+  const key='mmc3_end'; let end=localStorage.getItem(key); const now=Date.now();
+  if(!end||now>+end){end=now+23*3600000+59*60000+59000;localStorage.setItem(key,end);}
+  const pad=n=>String(n).padStart(2,'0');
+  function tick(){
+    const d=Math.max(0,+end-Date.now());
+    const th=document.getElementById('th'),tm=document.getElementById('tm'),ts=document.getElementById('ts');
+    if(th)th.textContent=pad(Math.floor(d/3600000));
+    if(tm)tm.textContent=pad(Math.floor(d%3600000/60000));
+    if(ts)ts.textContent=pad(Math.floor(d%60000/1000));
+    if(d>0)requestAnimationFrame(tick);
+  }tick();
+})();
 
-// COUNTER ANIMATION
-function animCount(el, target, dur){
-  let s = 0;
-  const step = target / (dur / 16);
-  const t = setInterval(() => {
-    s += step;
-    if(s >= target){ s = target; clearInterval(t); }
-    el.textContent = '+' + Math.floor(s).toLocaleString('pt-BR');
-  }, 16);
-}
-const cntObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){ animCount(e.target, 2400, 1600); cntObs.unobserve(e.target); }
-  });
-}, {threshold:0.5});
-const mc = document.getElementById('main-cnt');
-if(mc) cntObs.observe(mc);
+// ── DRAGGABLE CAROUSELS ─────────────────────────────────────
+(function(){
+  function makeDraggable(rowEl, trackEl) {
+    let isDragging = false;
+    let startX = 0;
+    let dragDelta = 0;
+    let animOffset = 0; // current CSS translateX from animation
+    let currentX = 0;  // total manual offset applied
+    let velX = 0;
+    let lastX = 0;
+    let rafId = null;
+    const isRight = trackEl.classList.contains('right');
 
-// SMOOTH SCROLL
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', function(e){
-    const t = document.querySelector(this.getAttribute('href'));
-    if(t){ e.preventDefault(); t.scrollIntoView({behavior:'smooth'}); }
+    // Read the current animated transform matrix so drag starts from the right place
+    function getAnimatedX() {
+      const matrix = window.getComputedStyle(trackEl).transform;
+      if (!matrix || matrix === 'none') return 0;
+      const m = new DOMMatrix(matrix);
+      return m.m41;
+    }
+
+    function applyOffset(x) {
+      trackEl.style.transform = 'translateX(' + x + 'px)';
+    }
+
+    function onPointerDown(e) {
+      isDragging = true;
+      animOffset = getAnimatedX();
+      currentX = animOffset;
+      startX = e.clientX ?? e.touches[0].clientX;
+      lastX = startX;
+      velX = 0;
+      trackEl.classList.add('dragging');
+      trackEl.style.transform = 'translateX(' + currentX + 'px)';
+      if (rafId) cancelAnimationFrame(rafId); rafId = null;
+    }
+
+    function onPointerMove(e) {
+      if (!isDragging) return;
+      const clientX = e.clientX ?? e.touches[0].clientX;
+      velX = clientX - lastX;
+      lastX = clientX;
+      dragDelta = clientX - startX;
+      currentX = animOffset + dragDelta;
+      applyOffset(currentX);
+    }
+
+    function onPointerUp() {
+      if (!isDragging) return;
+      isDragging = false;
+      trackEl.classList.remove('dragging');
+      // momentum glide
+      let v = velX;
+      function glide() {
+        v *= 0.92;
+        currentX += v;
+        applyOffset(currentX);
+        if (Math.abs(v) > 0.3) {
+          rafId = requestAnimationFrame(glide);
+        } else {
+          // resume CSS animation by clearing inline transform
+          rafId = null;
+          trackEl.style.transform = '';
+        }
+      }
+      rafId = requestAnimationFrame(glide);
+    }
+
+    rowEl.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mousemove', onPointerMove);
+    window.addEventListener('mouseup', onPointerUp);
+    rowEl.addEventListener('touchstart', onPointerDown, {passive:true});
+    window.addEventListener('touchmove', onPointerMove, {passive:true});
+    window.addEventListener('touchend', onPointerUp);
+  }
+
+  const row1 = document.getElementById('carouselRow1');
+  const track1 = document.getElementById('carouselTrack1');
+  const row2 = document.getElementById('carouselRow2');
+  const track2 = document.getElementById('carouselTrack2');
+  if (row1 && track1) makeDraggable(row1, track1);
+  if (row2 && track2) makeDraggable(row2, track2);
+})();
+
+// ── FAQ ──────────────────────────────────────────────────────
+function toggleFaq(btn){btn.closest('.faq-item').classList.toggle('open');}
+
+// ── SMOOTH SCROLL ────────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',function(e){
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
   });
 });
 </script>
