@@ -734,6 +734,13 @@ pointsGroup.appendChild(brG);
       <div class="carousel-item"><img src="b9aa767e-e96d-49db-a57d-9850e4e9d70b.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="a4db805a-0195-4a65-92fa-0159ba7fcb96.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="27afb5e5-4e18-41e4-ad39-8d912ec1e4fd.png" alt="Módulo"></div>
+      <!-- Duplicados para scroll infinito -->
+      <div class="carousel-item"><img src="fc69631d-1193-4d90-bdc5-9cb44dc8bd70.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="bd052fa8-0a1a-4a1e-a8f4-8a4b628f99e0.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a2957987-a5df-4d2e-a67f-b0e4ff23e2a6.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="b9aa767e-e96d-49db-a57d-9850e4e9d70b.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a4db805a-0195-4a65-92fa-0159ba7fcb96.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="27afb5e5-4e18-41e4-ad39-8d912ec1e4fd.png" alt="Módulo"></div>
     </div>
   </div>
   <div class="carousel-row" id="carouselRow2">
@@ -747,9 +754,75 @@ pointsGroup.appendChild(brG);
       <div class="carousel-item"><img src="0dac25d9-20ed-409a-a9b3-1d7cb4c873b7.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="a7186710-750a-4be5-8d70-e461170b8ed4.png" alt="Módulo"></div>
       <div class="carousel-item"><img src="8336783c-3260-4d05-b795-11a33e18f9d0.png" alt="Módulo"></div>
+      <!-- Duplicados para scroll infinito -->
+      <div class="carousel-item"><img src="be61c1e2-7ece-4420-b559-6d6418ab7d14.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="420d3c42-66a0-438c-ae5b-23387508248d.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="9a961203-a619-426c-9eae-e0e39aceda42.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="d17a3deb-4a7b-4cb9-bd3b-9162319628f9.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="4cb82b15-29e3-4fde-9381-8cd9fdefbeb9.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="6e4b2e47-538c-4b56-b937-22128e673e0b.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="0dac25d9-20ed-409a-a9b3-1d7cb4c873b7.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="a7186710-750a-4be5-8d70-e461170b8ed4.png" alt="Módulo"></div>
+      <div class="carousel-item"><img src="8336783c-3260-4d05-b795-11a33e18f9d0.png" alt="Módulo"></div>
     </div>
   </div>
 </section>
+
+<script>
+// ── AUTO SCROLL CAROUSELS ─────────────────────────────────────
+(function() {
+  const rows = [document.getElementById('carouselRow1'), document.getElementById('carouselRow2')];
+  
+  rows.forEach((row, index) => {
+    if (!row) return;
+    
+    let speed = index === 0 ? 0.8 : -0.8; // Row 1 moves left, Row 2 moves right
+    let isPaused = false;
+    let scrollPos = speed < 0 ? row.scrollWidth / 2 : 0; // Se move para a direita, começa do meio
+    
+    // Inicializa a posição do scroll corretamente
+    row.scrollLeft = scrollPos;
+
+    const scrollLoop = () => {
+      if (!isPaused) {
+        scrollPos += speed;
+        
+        // Lógica de loop infinito
+        const maxScroll = row.scrollWidth - row.clientWidth;
+        
+        if (speed > 0 && scrollPos >= row.scrollWidth / 2) {
+          scrollPos = 0; // Volta para o início de forma invisível
+        } else if (speed < 0 && scrollPos <= 0) {
+          scrollPos = row.scrollWidth / 2; // Volta para a metade de forma invisível
+        }
+        
+        row.scrollLeft = scrollPos;
+      }
+      requestAnimationFrame(scrollLoop);
+    };
+    
+    requestAnimationFrame(scrollLoop);
+
+    // Pausa quando o usuário interage (toca ou arrasta)
+    const pause = () => { isPaused = true; };
+    const resume = () => { 
+      isPaused = false; 
+      scrollPos = row.scrollLeft; // Atualiza a posição atual para continuar de onde o usuário soltou
+    };
+
+    row.addEventListener('touchstart', pause, {passive: true});
+    row.addEventListener('mousedown', pause);
+    row.addEventListener('touchend', resume);
+    row.addEventListener('mouseup', resume);
+    row.addEventListener('mouseleave', resume);
+    
+    // Se o usuário rolar com o mouse wheel/trackpad, atualiza a posição base
+    row.addEventListener('scroll', () => {
+      if(isPaused) scrollPos = row.scrollLeft;
+    }, {passive: true});
+  });
+})();
+</script>
 
 <!-- SHOWCASE 3D -->
 <section id="showcase">
