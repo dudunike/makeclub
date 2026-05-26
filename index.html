@@ -1323,9 +1323,10 @@ pointsGroup.appendChild(brG);
         var ytPlayer;
         var isPlayerReady = false;
         var YT_VIDEO_ID = '8sqarGt-_SE';
-        var YT_BASE_PARAMS = 'start=1&modestbranding=1&rel=0&showinfo=0&controls=0&enablejsapi=1&playsinline=1';
+        // Detect Instagram, Facebook and other restricted in-app browsers
+        var isRestrictedIAB = /Instagram|FBAN|FBAV|FB_IAB|Twitter|Line\/|Musical\.ly|TikTok/.test(navigator.userAgent);
 
-        // Add origin to iframe src so YouTube API postMessage validates correctly
+        // Add origin to iframe src for YouTube API validation
         (function() {
           var origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
           var iframe = document.getElementById('yt-iframe');
@@ -1345,24 +1346,25 @@ pointsGroup.appendChild(brG);
 
         function onPlayerStateChange(event) {
           var pauseOverlay = document.getElementById('custom-pause-overlay');
-          // event.data: 1 = playing, 2 = paused, 0 = ended
           if (event.data === 2 || event.data === 0) {
-             if(pauseOverlay) pauseOverlay.style.display = 'flex';
+            if(pauseOverlay) pauseOverlay.style.display = 'flex';
           } else {
-             if(pauseOverlay) pauseOverlay.style.display = 'none';
+            if(pauseOverlay) pauseOverlay.style.display = 'none';
           }
         }
 
         function _ytReloadWithAutoplay() {
-          // Reliable fallback for Instagram IAB and restricted WebViews:
-          // Changing the src with autoplay=1 is triggered by a user gesture,
-          // so the browser allows autoplay without needing postMessage.
           var origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
-          var src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID + '?' + YT_BASE_PARAMS + '&autoplay=1';
+          // Use controls=1: if autoplay also fails, user sees the native YouTube play button
+          var src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID
+            + '?start=1&modestbranding=1&rel=0&showinfo=0&controls=1&enablejsapi=1&playsinline=1&autoplay=1';
           if (origin) src += '&origin=' + encodeURIComponent(origin);
           var iframe = document.getElementById('yt-iframe');
           iframe.src = src;
-          // Re-hook YouTube API after src reload
+          // Remove click blocker so user can interact with YouTube native UI
+          var blocker = document.getElementById('video-blocker');
+          if (blocker) blocker.style.display = 'none';
+          // Re-hook YouTube API
           isPlayerReady = false;
           ytPlayer = null;
           setTimeout(function() {
@@ -1374,32 +1376,37 @@ pointsGroup.appendChild(brG);
                 }
               });
             }
-          }, 200);
+          }, 300);
         }
 
         function playVideoInit() {
           var overlay = document.getElementById('video-overlay');
           if(overlay) overlay.style.display = 'none';
 
-          // Primary: YouTube API (works in regular browsers)
-          if(isPlayerReady && ytPlayer && ytPlayer.playVideo) {
-            ytPlayer.playVideo();
+          // Instagram/Facebook IAB: API and postMessage are blocked — go straight to src reload
+          if (isRestrictedIAB) {
+            _ytReloadWithAutoplay();
             return;
           }
 
-          // Secondary: postMessage (may work in some WebViews)
-          var iframe = document.getElementById('yt-iframe');
-          try {
-            iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-          } catch(e) {}
+          // Normal browser: try YouTube API first
+          if(isPlayerReady && ytPlayer && ytPlayer.playVideo) {
+            ytPlayer.playVideo();
+          } else {
+            var iframe = document.getElementById('yt-iframe');
+            try {
+              iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+            } catch(e) {}
+          }
 
-          // Fallback: reload src with autoplay=1 — works in Instagram IAB and all restricted browsers
-          // Use short delay so postMessage above gets a chance first
+          // After 800ms verify video is actually playing (state===1).
+          // If not, fall back to src reload (catches edge cases in other browsers).
           setTimeout(function() {
-            if (!isPlayerReady) {
+            var state = (ytPlayer && ytPlayer.getPlayerState) ? ytPlayer.getPlayerState() : -1;
+            if (state !== 1) {
               _ytReloadWithAutoplay();
             }
-          }, 400);
+          }, 800);
         }
 
         function togglePlayPause() {
