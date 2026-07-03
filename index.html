@@ -1314,6 +1314,9 @@ pointsGroup.appendChild(brG);
           </div>
           <div style="margin-top: 16px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.65); letter-spacing: .04em;">CLIQUE PARA ASSISTIR</div>
         </div>
+
+        <!-- Fake Progress Bar -->
+        <div id="vsl-progress-bar" style="position: absolute; bottom: 0; left: 0; height: 4px; background: #ee0000; width: 0%; z-index: 12; transition: width 0.1s linear; pointer-events: none; box-shadow: 0 0 10px #ee0000;"></div>
       </div>
 
       <style>
@@ -1332,6 +1335,15 @@ pointsGroup.appendChild(brG);
         var vslPlayOverlay = document.getElementById('vsl-play-overlay');
         var vslPauseOverlay = document.getElementById('vsl-pause-overlay');
         var vslClickLayer = document.getElementById('vsl-click-layer');
+        var vslProgressBar = document.getElementById('vsl-progress-bar');
+
+        vslEl.addEventListener('timeupdate', function() {
+          if (!vslEl.duration) return;
+          var p = vslEl.currentTime / vslEl.duration;
+          // Curva de ilusao: começa muito rápido e desacelera (Math.pow(x, 0.45))
+          var fakeP = Math.pow(p, 0.45) * 100;
+          if (vslProgressBar) vslProgressBar.style.width = fakeP + '%';
+        });
 
         function vslStart() {
           if (vslPlayOverlay) vslPlayOverlay.style.display = 'none';
