@@ -1273,40 +1273,41 @@ pointsGroup.appendChild(brG);
       </p>
 
       <!-- Video Wrapper — VSL local (HTML5) -->
-      <div class="fscale d4" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.4); background: #000;" id="video-container">
+      <div class="fscale d4" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 24px 60px rgba(0,0,0,0.6); background: #000;" id="video-container">
 
-        <!-- HTML5 Video nativo -->
-        <video id="vsl-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; object-fit: cover;" playsinline preload="metadata">
+        <!-- HTML5 Video nativo — qualidade melhorada -->
+        <video id="vsl-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; object-fit: contain; image-rendering: high-quality; filter: contrast(1.06) saturate(1.08) brightness(1.02) sharpen(1);" playsinline preload="auto">
           <source src="VIDEO VSL/videoplayback (10).mp4" type="video/mp4">
         </video>
 
-        <!-- Pause Urgency Overlay -->
-        <div id="vsl-pause-overlay" style="position: absolute; inset: 0; z-index: 8; display: none; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.82); backdrop-filter: blur(6px); padding: 24px; text-align: center;">
-          <div style="font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #ee0000; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-            <span style="display:inline-block; width:8px; height:8px; background:#ee0000; border-radius:50%; box-shadow: 0 0 8px #ee0000; animation: blink 1s ease-in-out infinite;"></span>
+        <!-- Camada clicável transparente durante reprodução (permite pausar) -->
+        <div id="vsl-click-layer" style="position: absolute; inset: 0; z-index: 6; display: none; cursor: pointer;" onclick="vslToggle()" title="Clique para pausar"></div>
+
+        <!-- Pause Urgency Overlay (aparece por cima, mas o vídeo fica pausado de verdade) -->
+        <div id="vsl-pause-overlay" style="position: absolute; inset: 0; z-index: 8; display: none; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); padding: 24px; text-align: center; cursor: default;">
+          <div style="font-size: 12px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #ee0000; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+            <span style="display:inline-block; width:8px; height:8px; background:#ee0000; border-radius:50%; box-shadow: 0 0 10px #ee0000; animation: blink 1s ease-in-out infinite;"></span>
             ATENÇÃO — VOCÊ ESTÁ PERDENDO TEMPO
           </div>
-          <div style="font-size: clamp(18px, 5vw, 26px); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 14px; letter-spacing: -.02em;">Cada minuto parado é<br><span style="color:#ee0000;">dinheiro saindo do seu bolso.</span></div>
-          <div style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 380px; margin-bottom: 24px;">O mercado internacional não espera. Quem aplica o método primeiro <strong style="color:#fff;">fatura primeiro.</strong> Termine o vídeo e entenda por que isso é urgente.</div>
-          <button onclick="vslResume()" style="background: #fff; color: #080808; font-family: Inter, sans-serif; font-size: 14px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding: 16px 32px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; animation: pulse-btn 2.2s ease-in-out infinite;">
+          <div style="font-size: clamp(18px, 5vw, 26px); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 14px; letter-spacing: -.02em;">Cada segundo parado é<br><span style="color:#ee0000;">dinheiro saindo do seu bolso.</span></div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; max-width: 360px; margin-bottom: 26px;">O mercado internacional não espera. Quem aplica o método <strong style="color:#fff;">primeiro fatura primeiro.</strong> Termine de assistir.</div>
+          <button onclick="vslResume()" style="background: #fff; color: #080808; font-family: Inter, sans-serif; font-size: 14px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding: 16px 36px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; margin: 0 auto; animation: pulse-btn 2.2s ease-in-out infinite;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             Continuar assistindo
           </button>
         </div>
 
         <!-- Initial Play Overlay -->
-        <div id="vsl-play-overlay" style="position: absolute; inset: 0; z-index: 10; cursor: pointer; background: rgba(0,0,0,0.55); display: flex; flex-direction: column; align-items: center; justify-content: center;" onclick="vslStart()">
-          <!-- Top bar -->
+        <div id="vsl-play-overlay" style="position: absolute; inset: 0; z-index: 10; cursor: pointer; background: rgba(0,0,0,0.5); display: flex; flex-direction: column; align-items: center; justify-content: center;" onclick="vslStart()">
           <div style="position: absolute; top: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);">
             <span style="color: white; font-weight: 700; font-family: Inter, sans-serif; font-size: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 8px;">
               <span style="display:inline-block; width:8px; height:8px; background:#ff0000; border-radius:50%; box-shadow: 0 0 8px #ff0000;"></span>
               Assista agora: O Sistema Revelado
             </span>
           </div>
-          <!-- Pulsing play button -->
           <div style="position: relative; width: 88px; height: 88px;">
             <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; opacity: 0.55; animation: vturbPing 2s cubic-bezier(0,0,0.2,1) infinite;"></div>
-            <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(14,165,233,0.7);">
+            <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 28px rgba(14,165,233,0.8);">
               <svg width="36" height="36" viewBox="0 0 24 24" fill="white" stroke="none" style="margin-left:5px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             </div>
           </div>
@@ -1315,34 +1316,48 @@ pointsGroup.appendChild(brG);
       </div>
 
       <style>
-        @keyframes vturbPing { 75%, 100% { transform: scale(1.8); opacity: 0; } }
+        @keyframes vturbPing { 75%, 100% { transform: scale(1.9); opacity: 0; } }
       </style>
       <script>
         var vslEl = document.getElementById('vsl-video');
         var vslPlayOverlay = document.getElementById('vsl-play-overlay');
         var vslPauseOverlay = document.getElementById('vsl-pause-overlay');
+        var vslClickLayer = document.getElementById('vsl-click-layer');
 
         function vslStart() {
           if (vslPlayOverlay) vslPlayOverlay.style.display = 'none';
+          if (vslClickLayer) vslClickLayer.style.display = 'block';
           vslEl.play().catch(function(){});
+        }
+
+        function vslToggle() {
+          if (vslEl.paused) {
+            vslResume();
+          } else {
+            vslEl.pause();
+          }
         }
 
         function vslResume() {
           if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+          if (vslClickLayer) vslClickLayer.style.display = 'block';
           vslEl.play().catch(function(){});
         }
 
         vslEl.addEventListener('pause', function() {
           if (vslEl.ended) return;
+          if (vslClickLayer) vslClickLayer.style.display = 'none';
           if (vslPauseOverlay) vslPauseOverlay.style.display = 'flex';
         });
 
         vslEl.addEventListener('play', function() {
           if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+          if (vslClickLayer) vslClickLayer.style.display = 'block';
         });
 
         vslEl.addEventListener('ended', function() {
           if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+          if (vslClickLayer) vslClickLayer.style.display = 'none';
         });
       </script>
       
