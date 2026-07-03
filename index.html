@@ -1272,167 +1272,80 @@ pointsGroup.appendChild(brG);
         Vou te entregar 100% de graça agora. Assista antes que eu mude de ideia e tire do ar.
       </p>
 
-      <!-- Video Wrapper (Vturb Style Simulation with Anti-Redirect) -->
+      <!-- Video Wrapper — VSL local (HTML5) -->
       <div class="fscale d4" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 40px rgba(0,0,0,0.4); background: #000;" id="video-container">
-        
-        <iframe 
-          id="yt-iframe"
-          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;" 
-          src="https://www.youtube.com/embed/8sqarGt-_SE?start=1&modestbranding=1&rel=0&showinfo=0&controls=0&enablejsapi=1&playsinline=1"
-          title="Vídeo Bônus" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
 
-        <!-- Click Blocker / Controller to prevent YouTube redirection -->
-        <div id="video-blocker" style="position: absolute; inset: 0; z-index: 5; cursor: pointer;" onclick="togglePlayPause()"></div>
+        <!-- HTML5 Video nativo -->
+        <video id="vsl-video" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; object-fit: cover;" playsinline preload="metadata">
+          <source src="VIDEO VSL/videoplayback (10).mp4" type="video/mp4">
+        </video>
 
-        <!-- Custom Pause Overlay (Shows when video is paused) -->
-        <div id="custom-pause-overlay" style="position: absolute; inset: 0; z-index: 6; pointer-events: none; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);">
-           <div style="width: 80px; height: 80px; background: rgba(14,165,233,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 30px rgba(14,165,233,0.5);">
-             <svg width="36" height="36" viewBox="0 0 24 24" fill="white" stroke="none" style="margin-left:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-           </div>
+        <!-- Pause Urgency Overlay -->
+        <div id="vsl-pause-overlay" style="position: absolute; inset: 0; z-index: 8; display: none; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.82); backdrop-filter: blur(6px); padding: 24px; text-align: center;">
+          <div style="font-size: 13px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; color: #ee0000; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+            <span style="display:inline-block; width:8px; height:8px; background:#ee0000; border-radius:50%; box-shadow: 0 0 8px #ee0000; animation: blink 1s ease-in-out infinite;"></span>
+            ATENÇÃO — VOCÊ ESTÁ PERDENDO TEMPO
+          </div>
+          <div style="font-size: clamp(18px, 5vw, 26px); font-weight: 900; color: #fff; line-height: 1.2; margin-bottom: 14px; letter-spacing: -.02em;">Cada minuto parado é<br><span style="color:#ee0000;">dinheiro saindo do seu bolso.</span></div>
+          <div style="font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 380px; margin-bottom: 24px;">O mercado internacional não espera. Quem aplica o método primeiro <strong style="color:#fff;">fatura primeiro.</strong> Termine o vídeo e entenda por que isso é urgente.</div>
+          <button onclick="vslResume()" style="background: #fff; color: #080808; font-family: Inter, sans-serif; font-size: 14px; font-weight: 900; letter-spacing: .04em; text-transform: uppercase; padding: 16px 32px; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; animation: pulse-btn 2.2s ease-in-out infinite;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Continuar assistindo
+          </button>
         </div>
 
-        <!-- Custom Vturb-like Overlay (Initial state) -->
-        <div id="video-overlay" style="position: absolute; inset: 0; z-index: 10; cursor: pointer; background: url('https://img.youtube.com/vi/8sqarGt-_SE/maxresdefault.jpg') center/cover no-repeat;" onclick="playVideoInit()">
-          <div style="position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; transition: background 0.3s;" onmouseover="this.style.background='rgba(0,0,0,0.2)'" onmouseout="this.style.background='rgba(0,0,0,0.4)'">
-            <!-- Pulsing Play Button CTA -->
-            <div style="position: relative; width: 80px; height: 80px;">
-              <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; opacity: 0.6; animation: vturbPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>
-              <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(14,165,233,0.6); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="white" stroke="none" style="margin-left:4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              </div>
-            </div>
-          </div>
-          <!-- Click to Watch Top Bar -->
-          <div style="position: absolute; top: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent); text-align: left;">
+        <!-- Initial Play Overlay -->
+        <div id="vsl-play-overlay" style="position: absolute; inset: 0; z-index: 10; cursor: pointer; background: rgba(0,0,0,0.55); display: flex; flex-direction: column; align-items: center; justify-content: center;" onclick="vslStart()">
+          <!-- Top bar -->
+          <div style="position: absolute; top: 0; left: 0; right: 0; padding: 16px 20px; background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);">
             <span style="color: white; font-weight: 700; font-family: Inter, sans-serif; font-size: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 8px;">
               <span style="display:inline-block; width:8px; height:8px; background:#ff0000; border-radius:50%; box-shadow: 0 0 8px #ff0000;"></span>
               Assista agora: O Sistema Revelado
             </span>
           </div>
+          <!-- Pulsing play button -->
+          <div style="position: relative; width: 88px; height: 88px;">
+            <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; opacity: 0.55; animation: vturbPing 2s cubic-bezier(0,0,0.2,1) infinite;"></div>
+            <div style="position: absolute; inset: 0; background: #0ea5e9; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 24px rgba(14,165,233,0.7);">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="white" stroke="none" style="margin-left:5px;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </div>
+          </div>
+          <div style="margin-top: 16px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.65); letter-spacing: .04em;">CLIQUE PARA ASSISTIR</div>
         </div>
       </div>
-      
+
       <style>
-        @keyframes vturbPing {
-          75%, 100% { transform: scale(1.8); opacity: 0; }
-        }
+        @keyframes vturbPing { 75%, 100% { transform: scale(1.8); opacity: 0; } }
       </style>
       <script>
-        // Load YouTube IFrame API
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var vslEl = document.getElementById('vsl-video');
+        var vslPlayOverlay = document.getElementById('vsl-play-overlay');
+        var vslPauseOverlay = document.getElementById('vsl-pause-overlay');
 
-        var ytPlayer;
-        var isPlayerReady = false;
-        var YT_VIDEO_ID = '8sqarGt-_SE';
-        // Detect Instagram, Facebook and other restricted in-app browsers
-        var isRestrictedIAB = /Instagram|FBAN|FBAV|FB_IAB|Twitter|Line\/|Musical\.ly|TikTok/.test(navigator.userAgent);
-
-        // Add origin to iframe src for YouTube API validation
-        (function() {
-          var origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
-          var iframe = document.getElementById('yt-iframe');
-          if (iframe && origin && iframe.src.indexOf('origin=') === -1) {
-            iframe.src += '&origin=' + encodeURIComponent(origin);
-          }
-        })();
-
-        function onYouTubeIframeAPIReady() {
-          ytPlayer = new YT.Player('yt-iframe', {
-            events: {
-              'onReady': function() { isPlayerReady = true; },
-              'onStateChange': onPlayerStateChange
-            }
-          });
+        function vslStart() {
+          if (vslPlayOverlay) vslPlayOverlay.style.display = 'none';
+          vslEl.play().catch(function(){});
         }
 
-        function onPlayerStateChange(event) {
-          var pauseOverlay = document.getElementById('custom-pause-overlay');
-          if (event.data === 2 || event.data === 0) {
-            if(pauseOverlay) pauseOverlay.style.display = 'flex';
-          } else {
-            if(pauseOverlay) pauseOverlay.style.display = 'none';
-          }
+        function vslResume() {
+          if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+          vslEl.play().catch(function(){});
         }
 
-        function _ytReloadWithAutoplay() {
-          var origin = (window.location.origin && window.location.origin !== 'null') ? window.location.origin : '';
-          // Use controls=1: if autoplay also fails, user sees the native YouTube play button
-          var src = 'https://www.youtube.com/embed/' + YT_VIDEO_ID
-            + '?start=1&modestbranding=1&rel=0&showinfo=0&controls=1&enablejsapi=1&playsinline=1&autoplay=1';
-          if (origin) src += '&origin=' + encodeURIComponent(origin);
-          var iframe = document.getElementById('yt-iframe');
-          iframe.src = src;
-          // Remove click blocker so user can interact with YouTube native UI
-          var blocker = document.getElementById('video-blocker');
-          if (blocker) blocker.style.display = 'none';
-          // Re-hook YouTube API
-          isPlayerReady = false;
-          ytPlayer = null;
-          setTimeout(function() {
-            if (typeof YT !== 'undefined' && YT.Player) {
-              ytPlayer = new YT.Player('yt-iframe', {
-                events: {
-                  'onReady': function() { isPlayerReady = true; },
-                  'onStateChange': onPlayerStateChange
-                }
-              });
-            }
-          }, 300);
-        }
+        vslEl.addEventListener('pause', function() {
+          if (vslEl.ended) return;
+          if (vslPauseOverlay) vslPauseOverlay.style.display = 'flex';
+        });
 
-        function playVideoInit() {
-          var overlay = document.getElementById('video-overlay');
-          if(overlay) overlay.style.display = 'none';
+        vslEl.addEventListener('play', function() {
+          if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+        });
 
-          // Instagram/Facebook IAB: API and postMessage are blocked — go straight to src reload
-          if (isRestrictedIAB) {
-            _ytReloadWithAutoplay();
-            return;
-          }
-
-          // Normal browser: try YouTube API first
-          if(isPlayerReady && ytPlayer && ytPlayer.playVideo) {
-            ytPlayer.playVideo();
-          } else {
-            var iframe = document.getElementById('yt-iframe');
-            try {
-              iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            } catch(e) {}
-          }
-
-          // After 800ms verify video is actually playing (state===1).
-          // If not, fall back to src reload (catches edge cases in other browsers).
-          setTimeout(function() {
-            var state = (ytPlayer && ytPlayer.getPlayerState) ? ytPlayer.getPlayerState() : -1;
-            if (state !== 1) {
-              _ytReloadWithAutoplay();
-            }
-          }, 800);
-        }
-
-        function togglePlayPause() {
-          if(isPlayerReady && ytPlayer && ytPlayer.getPlayerState) {
-            var state = ytPlayer.getPlayerState();
-            if(state === 1) {
-              ytPlayer.pauseVideo();
-            } else {
-              ytPlayer.playVideo();
-            }
-          } else {
-            var iframe = document.getElementById('yt-iframe');
-            try {
-              iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            } catch(e) {}
-          }
-        }
+        vslEl.addEventListener('ended', function() {
+          if (vslPauseOverlay) vslPauseOverlay.style.display = 'none';
+        });
       </script>
+      
       
       <p class="fb d4" style="font-size: 13px; color: rgba(255,255,255,0.3); margin-top: 16px;">
         <svg style="width:14px; height:14px; vertical-align:middle; margin-right:4px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
