@@ -246,6 +246,47 @@ footer{background:var(--bg2);border-top:1px solid var(--brd);padding:32px 20px;t
 .fl-links a:hover{color:var(--txt2)}
 .fl-dis{font-size:11px;color:var(--txt3);line-height:1.65;max-width:440px;margin:0 auto}
 
+/* ── TOP HEADLINE BANNER ──────────────────────────── */
+.top-headline-banner {
+  background: #080808;
+  padding: 18px 20px 14px;
+  text-align: center;
+  border-bottom: 1px solid #1e1e1e;
+}
+.top-headline-banner p {
+  font-size: clamp(14px, 4.2vw, 19px);
+  font-weight: 900;
+  line-height: 1.3;
+  color: #fff;
+  max-width: 480px;
+  margin: 0 auto;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.top-headline-banner p .hl-gold {
+  color: #f5a623;
+}
+
+/* ── VSL HEADLINE ──────────────────────────────────── */
+.vsl-headline-wrap {
+  background: #080808;
+  padding: 28px 20px 8px;
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.vsl-headline-wrap p {
+  font-size: clamp(17px, 5.2vw, 24px);
+  font-weight: 900;
+  line-height: 1.25;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -.01em;
+}
+.vsl-headline-wrap p .hl-gold {
+  color: #f5a623;
+}
+
 /* ── RESPONSIVE ──────────────────────────────────── */
 @media(max-width:390px){
   :root{--rad:8px}
@@ -324,12 +365,22 @@ src="https://www.facebook.com/tr?id=945244561671219&ev=PageView&noscript=1"
 </head>
 <body style="background:#080808">
 
+<!-- TOP HEADLINE BANNER -->
+<div class="top-headline-banner">
+  <p><span class="hl-gold">COPIE E COLE,</span> EM MENOS DE 20 MINUTOS, A MINHA ESTRUTURA QUE ME TRAZ <span class="hl-gold">VENDAS EM DÓLAR</span> TODOS OS DIAS</p>
+</div>
+
 <!-- NAV -->
 <nav>
   <div class="nav-in">
     <div class="nav-logo">Make Money Club</div>
   </div>
 </nav>
+
+<!-- VSL HEADLINE -->
+<div class="vsl-headline-wrap">
+  <p>DESCUBRA O <span class="hl-gold">SISTEMA VALIDADO</span> QUE GERA VENDAS EM DÓLAR<br>TODOS OS DIAS — <span class="hl-gold">MESMO SEM EXPERIÊNCIA</span></p>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -463,7 +514,7 @@ src="https://www.facebook.com/tr?id=945244561671219&ev=PageView&noscript=1"
 <div class="div-line"></div>
 
 <!-- GLOBAL MARKET MAP -->
-<section id="global-market" style="background:#080808;padding:80px 0;overflow:hidden">
+<section id="global-market" class="map-anim-paused" style="background:#080808;padding:80px 0;overflow:hidden">
 <style>
 .gm-wrapper {
   max-width: 1100px;
@@ -507,6 +558,11 @@ src="https://www.facebook.com/tr?id=945244561671219&ev=PageView&noscript=1"
   0%, 35% { opacity: 0; transform: translateY(5px); }
   45%, 80% { opacity: 1; transform: translateY(0); }
   100% { opacity: 0; transform: translateY(-5px); }
+}
+
+/* Map animations paused until section is visible */
+.map-anim-paused * {
+  animation-play-state: paused !important;
 }
 </style>
 
@@ -690,6 +746,65 @@ brLabel.style.overflow = "visible";
 brLabel.innerHTML = `<div style="display:flex;justify-content:center;align-items:center;height:100%;"><span style="font-size:12px;font-weight:800;color:#0ea5e9;background:rgba(0,0,0,0.85);border:1px solid rgba(14,165,233,0.4);padding:3px 12px;border-radius:12px;white-space:nowrap;box-shadow:0 4px 10px rgba(0,0,0,0.6);">Brasil</span></div>`;
 brG.appendChild(brLabel);
 pointsGroup.appendChild(brG);
+
+// ── INTERSECTION OBSERVER: Animate only when section is visible ──
+const mapSection = document.getElementById('global-market');
+
+// Collect all animated elements for reset
+const allAnimatedEls = [];
+
+dots.forEach((dot, i) => {
+  const pathsGrp = document.getElementById('map-paths');
+  const ptGrp = document.getElementById('map-points');
+  if (pathsGrp) {
+    pathsGrp.querySelectorAll('[style*="animation"]').forEach(el => {
+      if (!allAnimatedEls.includes(el)) allAnimatedEls.push(el);
+    });
+  }
+  if (ptGrp) {
+    ptGrp.querySelectorAll('[style*="animation"]').forEach(el => {
+      if (!allAnimatedEls.includes(el)) allAnimatedEls.push(el);
+    });
+  }
+});
+
+const restartMapAnimations = () => {
+  // Remove paused class to allow animations
+  mapSection.classList.remove('map-anim-paused');
+
+  // Force reflow to restart all animations from 0
+  const allEls = [
+    ...document.getElementById('map-paths').querySelectorAll('*'),
+    ...document.getElementById('map-points').querySelectorAll('*')
+  ];
+  allEls.forEach(el => {
+    if (el.style && el.style.animation) {
+      const anim = el.style.animation;
+      el.style.animation = 'none';
+      el.getBoundingClientRect(); // trigger reflow
+      el.style.animation = anim;
+    }
+    if (el.innerHTML && el.innerHTML.includes('animate')) {
+      // SVG animate elements: reset begin
+      el.querySelectorAll('animate').forEach(a => {
+        try { a.beginElement(); } catch(e) {}
+      });
+    }
+  });
+};
+
+let mapAnimated = false;
+const mapObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && !mapAnimated) {
+      mapAnimated = true;
+      restartMapAnimations();
+      mapObserver.disconnect();
+    }
+  });
+}, { threshold: 0.3 });
+
+mapObserver.observe(mapSection);
 </script>
 </section>
 
