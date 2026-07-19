@@ -382,13 +382,17 @@ src="https://www.facebook.com/tr?id=945244561671219&ev=PageView&noscript=1"
 <!-- HERO -->
 <section id="hero">
   <div class="hero-photo">
-    <img src="hero.gif" alt="Make Money Club - Sistema de Inteligência Artificial">
+    <video src="VIDEO%20VSL/videoplayback%20(10).mp4" autoplay muted loop playsinline style="width:100%;height:auto;display:block"></video>
     <div class="hero-overlay">
       <h1 id="hero-h1"><span id="tw-static">Você lucra em </span><em id="tw-typed"></em><span class="tw-cursor" id="tw-cursor">|</span></h1>
     </div>
   </div>
   <div class="hero-bottom">
-    <p style="font-size:clamp(16px,4.8vw,21px);font-weight:900;line-height:1.25;color:#fff;text-align:center;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:22px">DESCUBRA O <span style="color:#f5a623">SISTEMA VALIDADO</span> QUE GERA VENDAS EM DÓLAR TODOS OS DIAS &mdash; <span style="color:#f5a623">MESMO SEM EXPERIÊNCIA</span></p>
+    <div style="text-align: center; margin-bottom: 22px;">
+      <div style="font-size: 48px; margin-bottom: 15px; line-height: 1; filter: drop-shadow(0 0 15px rgba(245, 166, 35, 0.6));">⚠️</div>
+      <p style="font-size:clamp(18px,5vw,24px);font-weight:900;line-height:1.25;color:#fff;text-align:center;letter-spacing:-.01em;margin-bottom:15px;">Nunca consegue vender? Quando vende não é lucrativo? Tem dificuldade em construir uma oferta que vende?</p>
+      <p style="font-size:clamp(16px,4.8vw,21px);font-weight:900;line-height:1.25;color:#fff;text-align:center;text-transform:uppercase;letter-spacing:-.01em;">ISSO ACONTECE PORQUE VOCÊ NUNCA COLOCOU EM SUAS MÃOS UM <span style="color:#f5a623; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px;">PRODUTO</span> <span style="color:#f5a623; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 4px;">VALIDADO.</span></p>
+    </div>
     <div class="hero-stats">
       <div class="hs"><div class="hs-v">+2.400</div><div class="hs-l">Lojas ativas</div></div>
       <div class="hs"><div class="hs-v">3</div><div class="hs-l">Moedas</div></div>
@@ -416,25 +420,32 @@ src="https://www.facebook.com/tr?id=945244561671219&ev=PageView&noscript=1"
 </style>
 
 <script>
-(function() {
-  var text   = 'Dólar, Euro e Libra.';
-  var target = document.getElementById('tw-typed');
-  var cursor = document.getElementById('tw-cursor');
+(function () {
+  var fullText = 'Dólar, Euro e Libra.';
+  var target   = document.getElementById('tw-typed');
+  var cursor   = document.getElementById('tw-cursor');
   if (!target || !cursor) return;
-  var speed  = 60;
-  var index  = 0;
-  setTimeout(function type() {
-    if (index < text.length) {
-      target.textContent += text.charAt(index);
-      index++;
-      setTimeout(type, speed);
+
+  var i = 0;
+  var delay = 65; // ms por caractere
+
+  function typeNext() {
+    if (i < fullText.length) {
+      target.textContent = fullText.slice(0, i + 1);
+      i++;
+      setTimeout(typeNext, delay);
     } else {
-      setTimeout(function() {
-        cursor.classList.add('done');
-      }, 1200);
+      // Cursor pisca por 1.5s depois some
+      setTimeout(function () {
+        cursor.style.animation = 'none';
+        cursor.style.opacity   = '0';
+      }, 1500);
     }
-  }, 800);
-})();
+  }
+
+  // Aguarda 900ms antes de começar (garante que o DOM e o GIF já carregaram)
+  setTimeout(typeNext, 900);
+}());
 </script>
 
 <!-- TICKER -->
